@@ -1128,3 +1128,403 @@ code {
     font-size: 1rem;
   }
 }
+
+/* Projects Page Styles */
+.projects-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  background-color: #fff;
+}
+
+.filter-container {
+  position: relative;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.filter-toggle:hover {
+  background-color: #f1f1f1;
+}
+
+.filter-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.filter-arrow.open {
+  transform: rotate(180deg);
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  z-index: 10;
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.filter-dropdown.open {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filter-button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+  background-color: #f0f0f0;
+}
+
+.filter-button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.project-card.hovered {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.project-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.05);
+}
+
+.project-category {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 0.4rem 0.8rem;
+  background-color: rgba(52, 152, 219, 0.9);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-status {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 0.4rem 0.8rem;
+  background-color: rgba(39, 174, 96, 0.9);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.project-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.project-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+.project-description {
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.project-readme {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #3498db;
+}
+
+.project-readme h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #3498db;
+}
+
+.project-readme p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.project-updated {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.project-tech-stack {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.tech-badge {
+  padding: 0.3rem 0.6rem;
+  background-color: #f0f6fa;
+  color: #3498db;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.github-link, .live-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.github-link {
+  background-color: #333;
+  color: white;
+}
+
+.github-link:hover {
+  background-color: #222;
+}
+
+.live-link {
+  background-color: #3498db;
+  color: white;
+}
+
+.live-link:hover {
+  background-color: #2980b9;
+}
+
+.no-projects {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  color: #666;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .projects-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    max-width: 100%;
+  }
+}
+
+/* Dark Mode Styles for Projects */
+@media (prefers-color-scheme: dark) {
+  .project-card {
+    background-color: #222;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .project-title {
+    color: #eee;
+  }
+  
+  .project-description {
+    color: #ccc;
+  }
+  
+  .project-readme {
+    background-color: #2a2a2a;
+    border-left-color: #3498db;
+  }
+  
+  .project-readme p {
+    color: #aaa;
+  }
+  
+  .search-input, .filter-toggle {
+    background-color: #333;
+    border-color: #444;
+    color: #eee;
+  }
+  
+  .search-icon {
+    color: #999;
+  }
+  
+  .filter-dropdown {
+    background-color: #333;
+  }
+  
+  .filter-button:hover {
+    background-color: #444;
+  }
+  
+  .tech-badge {
+    background-color: #2c3e50;
+    color: #6ab0de;
+  }
+  
+  .no-projects {
+    background-color: #2a2a2a;
+    color: #aaa;
+  }
+}

@@ -4,6 +4,7 @@ import WorkExperiencePage from './pages/WorkExperiencePage';
 import AchievementsPage from './pages/AchievementsPage';
 import BlogPage from './pages/BlogPage';
 import AIAssistantPage from './pages/AIAssistantPage';
+import ProjectsPage from './pages/ProjectsPage';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/experience" element={<WorkExperiencePage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/chat" element={<AIAssistantPage />} />
       </Routes>
     </Router>
