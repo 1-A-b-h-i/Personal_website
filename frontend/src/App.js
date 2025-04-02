@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import WorkExperiencePage from './pages/WorkExperiencePage';
 import AchievementsPage from './pages/AchievementsPage';
 import BlogPage from './pages/BlogPage';
@@ -33,6 +33,7 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/chat" element={<AIAssistantPage />} />
+        <Route path="*" element={<HomePage welcomeTexts={welcomeTexts} textIndex={textIndex} />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import WorkExperience from '../components/WorkExperience/WorkExperience';
 
@@ -9,7 +10,7 @@ function WorkExperiencePage() {
       <div className="page-content">
         <WorkExperience />
         <div className="back-link-container">
-          <a href="/" className="back-button">Back to Home</a>
+          <Link to="/" className="back-button">Back to Home</Link>
         </div>
       </div>
     </div>
