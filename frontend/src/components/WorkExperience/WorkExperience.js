@@ -1,35 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function WorkExperience() {
-  const experiences = [
-    {
-      id: 1,
-      title: "Software Engineer",
-      company: "Tech Company",
-      location: "City, Country",
-      period: "Jan 2022 - Present",
-      description: "Developed and maintained web applications using React.js and Node.js. Implemented new features and improved existing functionality. Collaborated with cross-functional teams to deliver high-quality software products.",
-      technologies: ["React", "Node.js", "MongoDB", "AWS"]
-    },
-    {
-      id: 2,
-      title: "Junior Developer",
-      company: "Startup Inc.",
-      location: "City, Country",
-      period: "May 2020 - Dec 2021",
-      description: "Assisted in the development of web applications. Participated in code reviews and testing. Learned and implemented best practices in software development.",
-      technologies: ["JavaScript", "HTML/CSS", "Git", "Agile"]
-    },
-    {
-      id: 3,
-      title: "Intern",
-      company: "Tech Solutions",
-      location: "City, Country",
-      period: "Jan 2020 - Apr 2020",
-      description: "Developed small features and bug fixes for existing applications. Participated in daily stand-ups and sprint planning.",
-      technologies: ["Python", "Django", "PostgreSQL"]
-    }
-  ];
+  const [experiences, setExperiences] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/experience');
+        if (!response.ok) {
+          throw new Error('Failed to fetch experience data');
+        }
+        const data = await response.json();
+        setExperiences(data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching experiences:', err);
+        setError('Failed to load work experience data. Please try again later.');
+        setLoading(false);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
+  if (loading) {
+    return <div className="loading">Loading work experience...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
 
   return (
     <div className="work-experience-container">

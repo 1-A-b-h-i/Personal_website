@@ -1,0 +1,87 @@
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import json
+import os
+
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+
+# Load data from JSON file
+def load_data():
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'data.json'), 'r') as file:
+            return json.load(file)
+    except Exception as e:
+        print(f"Error loading data: {e}")
+        return {
+            "experience": [],
+            "achievements": [],
+            "blog_posts": [],
+            "ai_responses": {}
+        }
+
+# Routes
+@app.route('/api/experience', methods=['GET'])
+def get_experience():
+    data = load_data()
+    return jsonify(data.get("experience", []))
+
+@app.route('/api/achievements', methods=['GET'])
+def get_achievements():
+    data = load_data()
+    return jsonify(data.get("achievements", []))
+
+@app.route('/api/blog', methods=['GET'])
+def get_blog_posts():
+    data = load_data()
+    return jsonify(data.get("blog_posts", []))
+
+@app.route('/api/blog/<int:post_id>', methods=['GET'])
+def get_blog_post(post_id):
+    data = load_data()
+    blog_posts = data.get("blog_posts", [])
+    post = next((post for post in blog_posts if post["id"] == post_id), None)
+    if post:
+        return jsonify(post)
+    return jsonify({"error": "Post not found"}), 404
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    data = request.json
+    if not data or 'message' not in data:
+        return jsonify({"error": "No message provided"}), 400
+    
+    user_message = data['message'].lower()
+    
+    # Load AI responses from JSON
+    ai_data = load_data()
+    ai_responses = ai_data.get("ai_responses", {})
+    
+    # Simple keyword matching for AI responses
+    if "who is abhinav" in user_message or "about abhinav" in user_message:
+        response = ai_responses.get("who is abhinav", ai_responses.get("default", ""))
+    elif "skills" in user_message or "what can abhinav do" in user_message:
+        response = ai_responses.get("what are abhinav's skills", ai_responses.get("default", ""))
+    elif "projects" in user_message or "work" in user_message:
+        response = ai_responses.get("what projects has abhinav worked on", ai_responses.get("default", ""))
+    elif "education" in user_message or "study" in user_message:
+        response = ai_responses.get("education", ai_responses.get("default", ""))
+    elif "contact" in user_message or "email" in user_message or "reach" in user_message:
+        response = ai_responses.get("contact", ai_responses.get("default", ""))
+    else:
+        response = ai_responses.get("default", "I don't have information about that.")
+    
+    return jsonify({"response": response})
+
+@app.route('/api/contact', methods=['POST'])
+def submit_contact():
+    data = request.json
+    
+    # In a real application, you would validate the data and save it to a database
+    # or send an email with the contact information
+    
+    # For now, just acknowledge receipt
+    return jsonify({"message": "Contact information received successfully"})
+
+if __name__ == '__main__':
+    app.run(debug=True) 

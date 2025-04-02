@@ -1,0 +1,71 @@
+{
+  "experience": [
+    {
+      "id": 1,
+      "title": "Software Engineer",
+      "company": "Tech Company",
+      "location": "City, Country",
+      "period": "Jan 2022 - Present",
+      "description": "Developed and maintained web applications using React.js and Node.js. Implemented new features and improved existing functionality. Collaborated with cross-functional teams to deliver high-quality software products.",
+      "technologies": ["React", "Node.js", "MongoDB", "AWS"]
+    },
+    {
+      "id": 2,
+      "title": "Junior Developer",
+      "company": "Startup Inc.",
+      "location": "City, Country",
+      "period": "May 2020 - Dec 2021",
+      "description": "Assisted in the development of web applications. Participated in code reviews and testing. Learned and implemented best practices in software development.",
+      "technologies": ["JavaScript", "HTML/CSS", "Git", "Agile"]
+    },
+    {
+      "id": 3,
+      "title": "Intern",
+      "company": "Tech Solutions",
+      "location": "City, Country",
+      "period": "Jan 2020 - Apr 2020",
+      "description": "Developed small features and bug fixes for existing applications. Participated in daily stand-ups and sprint planning.",
+      "technologies": ["Python", "Django", "PostgreSQL"]
+    }
+  ],
+  "achievements": [
+    {
+      "id": 1,
+      "title": "Outstanding Performance Award",
+      "organization": "Tech Company",
+      "date": "December 2022",
+      "description": "Recognized for exceptional contributions to the team's success."
+    },
+    {
+      "id": 2,
+      "title": "Hackathon Winner",
+      "organization": "TechFest 2021",
+      "date": "March 2021",
+      "description": "First place in a 48-hour hackathon for developing an innovative solution."
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": 1,
+      "title": "Getting Started with React",
+      "date": "2023-01-15",
+      "summary": "A beginner's guide to setting up and using React for web development.",
+      "content": "This is a placeholder for blog content about React."
+    },
+    {
+      "id": 2,
+      "title": "Python Tips and Tricks",
+      "date": "2022-11-20",
+      "summary": "Useful Python techniques to improve your coding efficiency.",
+      "content": "This is a placeholder for blog content about Python."
+    }
+  ],
+  "ai_responses": {
+    "who is abhinav": "Abhinav Paidisetti is a software developer specialized in web technologies and AI. He has worked on various projects and has expertise in React, Node.js, and machine learning.",
+    "what are abhinav's skills": "Abhinav is proficient in several programming languages including JavaScript, Python, and Java. He specializes in web development with frameworks like React, Vue.js, and has experience with backend technologies like Node.js and Express. He also has knowledge in machine learning and data science.",
+    "what projects has abhinav worked on": "Abhinav has worked on several notable projects including a healthcare management system using AI, a real-time collaboration tool for developers, and an e-learning platform. Check out his experience section for more details.",
+    "education": "Abhinav completed his Bachelor's degree in Computer Science from a prestigious university with honors. He has also taken various online courses to enhance his skills in specific areas of interest.",
+    "contact": "You can reach out to Abhinav via email at abhinavpaidisetti@gmail.com or connect with him on LinkedIn.",
+    "default": "I don't have specific information about that. Please ask me about Abhinav's skills, experience, education, or projects."
+  }
+} 

@@ -1,36 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Achievements() {
-  const achievements = [
-    {
-      id: 1,
-      title: "First Prize in National Hackathon",
-      organization: "TechFest 2022",
-      date: "November 2022",
-      description: "Won first prize for developing an innovative solution for healthcare management using AI and blockchain technology."
-    },
-    {
-      id: 2,
-      title: "Published Research Paper",
-      organization: "International Journal of Computer Science",
-      date: "July 2021",
-      description: "Published a research paper on 'Effective Machine Learning Approaches for Data Analysis in Healthcare'."
-    },
-    {
-      id: 3,
-      title: "Google Developer Certification",
-      organization: "Google",
-      date: "March 2021",
-      description: "Obtained certification in Google Cloud Platform with specialization in machine learning and data engineering."
-    },
-    {
-      id: 4,
-      title: "Open Source Contribution Award",
-      organization: "GitHub",
-      date: "January 2020",
-      description: "Recognized for significant contributions to open-source projects, particularly in the development of tools for web developers."
-    }
-  ];
+  const [achievements, setAchievements] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAchievements = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/achievements');
+        if (!response.ok) {
+          throw new Error('Failed to fetch achievements data');
+        }
+        const data = await response.json();
+        setAchievements(data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching achievements:', err);
+        setError('Failed to load achievements data. Please try again later.');
+        setLoading(false);
+      }
+    };
+
+    fetchAchievements();
+  }, []);
+
+  if (loading) {
+    return <div className="loading">Loading achievements...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
 
   return (
     <div className="achievements-container">

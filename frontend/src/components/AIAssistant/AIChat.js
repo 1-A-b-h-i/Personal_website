@@ -21,38 +21,26 @@ function AIChat() {
     scrollToBottom();
   }, [messages]);
 
-  // Simulate AI response
-  const simulateAIResponse = (question) => {
-    const responses = {
-      "who is abhinav": "Abhinav Paidisetti is a software developer specialized in web technologies and AI. He has worked on various projects and has expertise in React, Node.js, and machine learning.",
-      "what are abhinav's skills": "Abhinav is proficient in several programming languages including JavaScript, Python, and Java. He specializes in web development with frameworks like React, Vue.js, and has experience with backend technologies like Node.js and Express. He also has knowledge in machine learning and data science.",
-      "what projects has abhinav worked on": "Abhinav has worked on several notable projects including a healthcare management system using AI, a real-time collaboration tool for developers, and an e-learning platform. Check out his experience section for more details.",
-      "education": "Abhinav completed his Bachelor's degree in Computer Science from a prestigious university with honors. He has also taken various online courses to enhance his skills in specific areas of interest.",
-      "contact": "You can reach out to Abhinav via email at abhinavpaidisetti@gmail.com or connect with him on LinkedIn. Check the contact section for more details.",
-      "default": "I don't have specific information about that. Please ask me about Abhinav's skills, experience, education, or projects."
-    };
-
-    const lowerQuestion = question.toLowerCase();
-    let response = "";
-    
-    if (lowerQuestion.includes("who is abhinav") || lowerQuestion.includes("about abhinav")) {
-      response = responses["who is abhinav"];
-    } else if (lowerQuestion.includes("skills") || lowerQuestion.includes("what can abhinav do")) {
-      response = responses["what are abhinav's skills"];
-    } else if (lowerQuestion.includes("projects") || lowerQuestion.includes("work")) {
-      response = responses["what projects has abhinav worked on"];
-    } else if (lowerQuestion.includes("education") || lowerQuestion.includes("study")) {
-      response = responses["education"];
-    } else if (lowerQuestion.includes("contact") || lowerQuestion.includes("email") || lowerQuestion.includes("reach")) {
-      response = responses["contact"];
-    } else {
-      response = responses["default"];
+  // Send message to backend API
+  const sendMessageToAPI = async (message) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+      
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error communicating with API:', error);
+      return "Sorry, I'm having trouble connecting to my knowledge base right now.";
     }
-
-    return response;
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (inputMessage.trim() === '') return;
     
     // Add user message
@@ -66,16 +54,30 @@ function AIChat() {
     setInputMessage('');
     setIsTyping(true);
     
-    // Simulate AI thinking
-    setTimeout(() => {
+    // Get response from API
+    try {
+      const aiResponseText = await sendMessageToAPI(inputMessage);
+      
       const aiResponse = {
         id: messages.length + 2,
-        text: simulateAIResponse(inputMessage),
+        text: aiResponseText,
         sender: "ai"
       };
+      
       setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      console.error('Error getting response:', error);
+      
+      const errorResponse = {
+        id: messages.length + 2,
+        text: "Sorry, I'm having trouble responding right now.",
+        sender: "ai"
+      };
+      
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleKeyPress = (e) => {

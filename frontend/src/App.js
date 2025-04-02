@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import Contact from './components/Contact';
 import WorkExperiencePage from './pages/WorkExperiencePage';
 import AchievementsPage from './pages/AchievementsPage';
 import BlogPage from './pages/BlogPage';
 import AIAssistantPage from './pages/AIAssistantPage';
 import HomePage from './pages/HomePage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   const [textIndex, setTextIndex] = useState(0);
@@ -26,7 +26,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage welcomeTexts={welcomeTexts} textIndex={textIndex} />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/experience" element={<WorkExperiencePage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/blog" element={<BlogPage />} />

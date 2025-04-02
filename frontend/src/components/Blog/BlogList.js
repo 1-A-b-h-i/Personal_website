@@ -1,60 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function BlogList() {
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Getting Started with React Hooks",
-      date: "May 15, 2023",
-      summary: "Learn how to use React Hooks to simplify your components and make your code more reusable.",
-      category: "Web Development",
-      image: "https://via.placeholder.com/600x400",
-      slug: "getting-started-with-react-hooks"
-    },
-    {
-      id: 2,
-      title: "Machine Learning Fundamentals",
-      date: "April 22, 2023",
-      summary: "A comprehensive guide to understanding the basics of machine learning algorithms.",
-      category: "AI",
-      image: "https://via.placeholder.com/600x400",
-      slug: "machine-learning-fundamentals"
-    },
-    {
-      id: 3,
-      title: "Building REST APIs with Node.js",
-      date: "March 18, 2023",
-      summary: "Step-by-step guide to creating robust REST APIs using Node.js and Express.",
-      category: "Backend Development",
-      image: "https://via.placeholder.com/600x400",
-      slug: "building-rest-apis-with-nodejs"
-    },
-    {
-      id: 4,
-      title: "CSS Grid Layout: A Complete Guide",
-      date: "February 05, 2023",
-      summary: "Master CSS Grid Layout with practical examples and tips for responsive design.",
-      category: "Web Design",
-      image: "https://via.placeholder.com/600x400",
-      slug: "css-grid-layout-guide"
-    }
-  ];
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/blog');
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        const data = await response.json();
+        
+        // Add some additional fields if they're not in the API data
+        const enhancedData = data.map(post => ({
+          ...post,
+          category: post.category || "Web Development",
+          image: post.image || "https://via.placeholder.com/600x400",
+          slug: post.slug || `post-${post.id}`
+        }));
+        
+        setBlogPosts(enhancedData);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching blog posts:', err);
+        setError('Failed to load blog posts. Please try again later.');
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
+  if (loading) {
+    return <div className="loading">Loading blog posts...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
+  // Get unique categories for filters
+  const categories = ['All', ...new Set(blogPosts.map(post => post.category))];
+  
+  // Filter blog posts based on selected category
+  const filteredPosts = activeFilter === 'All' 
+    ? blogPosts 
+    : blogPosts.filter(post => post.category === activeFilter);
 
   return (
     <div className="blog-container">
       <h2 className="section-title">Latest Blog Posts</h2>
       
       <div className="blog-filter">
-        <button className="filter-button active">All</button>
-        <button className="filter-button">Web Development</button>
-        <button className="filter-button">AI</button>
-        <button className="filter-button">Backend Development</button>
-        <button className="filter-button">Web Design</button>
+        {categories.map(category => (
+          <button 
+            key={category}
+            className={`filter-button ${activeFilter === category ? 'active' : ''}`}
+            onClick={() => setActiveFilter(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
       
       <div className="blog-grid">
-        {blogPosts.map((post) => (
+        {filteredPosts.map((post) => (
           <div className="blog-card" key={post.id}>
             <div className="blog-image-container">
               <img src={post.image} alt={post.title} className="blog-image" />
@@ -64,7 +79,7 @@ function BlogList() {
               <span className="blog-date">{post.date}</span>
               <h3 className="blog-title">{post.title}</h3>
               <p className="blog-summary">{post.summary}</p>
-              <Link to={`/blog/${post.slug}`} className="read-more-link">
+              <Link to={`/blog/${post.slug || post.id}`} className="read-more-link">
                 Read More <span>&rarr;</span>
               </Link>
             </div>
