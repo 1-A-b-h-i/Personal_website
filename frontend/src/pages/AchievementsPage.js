@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Achievements from '../components/Achievements/Achievements';
-import './PageCommon.css';
 
 function AchievementsPage() {
   return (

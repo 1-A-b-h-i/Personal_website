@@ -1,5 +1,4 @@
 import React from 'react';
-import './Achievements.css';
 
 function Achievements() {
   const achievements = [

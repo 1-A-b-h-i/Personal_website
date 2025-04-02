@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import AIChat from '../components/AIAssistant/AIChat';
-import './PageCommon.css';
 
 function AIAssistantPage() {
   return (

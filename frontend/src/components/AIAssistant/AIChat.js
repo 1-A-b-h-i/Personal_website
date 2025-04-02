@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './AIChat.css';
 
 function AIChat() {
   const [messages, setMessages] = useState([

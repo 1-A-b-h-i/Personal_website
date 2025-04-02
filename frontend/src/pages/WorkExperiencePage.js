@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import WorkExperience from '../components/WorkExperience/WorkExperience';
-import './PageCommon.css';
 
 function WorkExperiencePage() {
   return (

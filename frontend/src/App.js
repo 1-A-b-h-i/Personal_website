@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import './App.css';
 import Contact from './components/Contact';
 import WorkExperiencePage from './pages/WorkExperiencePage';
 import AchievementsPage from './pages/AchievementsPage';

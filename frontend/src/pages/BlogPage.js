@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import BlogList from '../components/Blog/BlogList';
-import './PageCommon.css';
 
 function BlogPage() {
   return (
