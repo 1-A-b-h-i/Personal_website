@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 function AIChat() {
   const [messages, setMessages] = useState([
@@ -10,7 +12,13 @@ function AIChat() {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
   const messagesEndRef = useRef(null);
+
+  // Initialize session on component mount
+  useEffect(() => {
+    initializeSession();
+  }, []);
 
   // Scroll to bottom whenever messages change
   const scrollToBottom = () => {
@@ -21,6 +29,46 @@ function AIChat() {
     scrollToBottom();
   }, [messages]);
 
+  // Initialize chat session
+  const initializeSession = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/chat/session', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      
+      const data = await response.json();
+      setSessionId(data.session_id);
+    } catch (error) {
+      console.error('Error initializing chat session:', error);
+    }
+  };
+
+  // Clear conversation history
+  const clearConversation = async () => {
+    try {
+      await fetch('http://localhost:5000/api/chat/clear', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ session_id: sessionId }),
+      });
+      
+      // Reset UI
+      setMessages([
+        {
+          id: 1,
+          text: "Hi there! I'm Abhinav's AI assistant. How can I help you today?",
+          sender: "ai"
+        }
+      ]);
+    } catch (error) {
+      console.error('Error clearing conversation:', error);
+    }
+  };
+
   // Send message to backend API
   const sendMessageToAPI = async (message) => {
     try {
@@ -29,10 +77,20 @@ function AIChat() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        credentials: 'include',
+        body: JSON.stringify({ 
+          message, 
+          session_id: sessionId 
+        }),
       });
       
       const data = await response.json();
+      
+      // Update session ID if it's returned by the server
+      if (data.session_id) {
+        setSessionId(data.session_id);
+      }
+      
       return data.response;
     } catch (error) {
       console.error('Error communicating with API:', error);
@@ -86,6 +144,19 @@ function AIChat() {
     }
   };
 
+  // Render message content with or without Markdown
+  const renderMessageContent = (message) => {
+    if (message.sender === "ai") {
+      return (
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {message.text}
+        </ReactMarkdown>
+      );
+    } else {
+      return message.text;
+    }
+  };
+
   return (
     <div className="ai-chat-container">
       <div className="ai-chat-header">
@@ -94,6 +165,13 @@ function AIChat() {
           <h3>Abhinav's AI Assistant</h3>
           <p>Ask me anything about Abhinav</p>
         </div>
+        <button 
+          className="clear-chat-btn" 
+          onClick={clearConversation}
+          title="Clear conversation history"
+        >
+          Clear Chat
+        </button>
       </div>
       
       <div className="ai-chat-messages">
@@ -103,7 +181,7 @@ function AIChat() {
             className={`message ${message.sender === "user" ? "user-message" : "ai-message"}`}
           >
             <div className="message-bubble">
-              {message.text}
+              {renderMessageContent(message)}
             </div>
             <div className="message-avatar">
               {message.sender === "user" ? "👤" : "🤖"}

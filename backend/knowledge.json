@@ -1,0 +1,197 @@
+{
+  "basic_info": {
+    "name": "Abhinav Paidisetti",
+    "title": "Software Engineer",
+    "location": "Hyderabad, India",
+    "email": "abhinavpaidisetti@gmail.com",
+    "linkedin": "linkedin.com/in/abhinavpaidisetti",
+    "github": "github.com/abhinavpaidisetti",
+    "website": "abhinavpaidisetti.me",
+    "summary": "Passionate software engineer with expertise in web development, machine learning and data science. Dedicated to creating innovative solutions that solve real-world problems."
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Technology in Computer Science",
+      "school": "Indian Institute of Technology Hyderabad",
+      "location": "Hyderabad, India",
+      "period": "2020 - 2024",
+      "achievements": [
+        "Graduated with honors",
+        "Specialized in Artificial Intelligence and Machine Learning",
+        "Research assistant in the Computer Vision lab"
+      ]
+    }
+  ],
+  "skills": {
+    "programming_languages": ["JavaScript", "Python", "Java", "C++", "SQL"],
+    "web_technologies": ["React", "Node.js", "Express", "HTML/CSS", "Vue.js"],
+    "frameworks_libraries": ["TensorFlow", "PyTorch", "Flask", "Django", "Bootstrap"],
+    "databases": ["MongoDB", "MySQL", "PostgreSQL", "Firebase"],
+    "cloud_platforms": ["AWS", "GCP", "Azure", "Heroku"],
+    "tools": ["Git", "Docker", "Kubernetes", "Jira", "Figma"],
+    "soft_skills": ["Team Leadership", "Project Management", "Technical Writing", "Public Speaking"]
+  },
+  "experience_details": [
+    {
+      "title": "Software Engineer",
+      "company": "Tech Company",
+      "location": "Hyderabad, India",
+      "period": "Jan 2022 - Present",
+      "description": "Lead developer for multiple web applications using React.js and Node.js. Implemented new features and improved existing functionality resulting in a 30% increase in user engagement. Collaborated with cross-functional teams including product managers, designers, and other engineers to deliver high-quality software products on schedule.",
+      "achievements": [
+        "Reduced API response time by 40% through optimization of database queries",
+        "Implemented CI/CD pipeline that decreased deployment time by 60%",
+        "Mentored junior developers and led technical knowledge-sharing sessions"
+      ],
+      "technologies": ["React", "Node.js", "MongoDB", "AWS", "Docker"]
+    },
+    {
+      "title": "Junior Developer",
+      "company": "Startup Inc.",
+      "location": "Hyderabad, India",
+      "period": "May 2020 - Dec 2021",
+      "description": "Developed frontend components using JavaScript and React. Assisted in designing and implementing RESTful APIs. Participated in code reviews and testing to ensure high-quality deliverables. Learned and implemented best practices in software development throughout the product lifecycle.",
+      "achievements": [
+        "Built a responsive dashboard that visualized real-time data analytics",
+        "Contributed to open-source libraries used by the company",
+        "Received 'Rising Star' award for exceptional progress"
+      ],
+      "technologies": ["JavaScript", "React", "HTML/CSS", "Git", "Agile"]
+    },
+    {
+      "title": "Research Intern",
+      "company": "IIT Hyderabad",
+      "location": "Hyderabad, India",
+      "period": "June 2024 - August 2024",
+      "description": "Conducted research on computer vision applications for autonomous driving. Trained YOLOv8 models for object detection and implemented algorithms for analyzing driver attention based on gaze parameters. Automated data processing and analysis workflows using Python scripts.",
+      "achievements": [
+        "Achieved 93% accuracy in attention detection model",
+        "Automated 75% of repetitive data processing tasks",
+        "Co-authored a research paper submitted to a national conference"
+      ],
+      "technologies": ["YOLOv8", "Gaze Parameters", "Python", "TensorFlow", "OpenCV"]
+    },
+    {
+      "title": "Technical Intern",
+      "company": "Tech Mahindra",
+      "location": "Hyderabad, India",
+      "period": "May 2024 - June 2024",
+      "description": "Worked on SAP Enterprise Resource Planning systems, focusing on data archiving modules (SARA and SARI). Developed scripts for data migration and cleansing. Completed all assigned tasks with 100% accuracy and ahead of schedule.",
+      "achievements": [
+        "Improved data archiving efficiency by 25%",
+        "Created documentation that became standard for new team members",
+        "Received recognition for attention to detail and reliability"
+      ],
+      "technologies": ["SAP", "Data Archiving", "Python", "SQL", "Excel"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Personal Portfolio Website",
+      "description": "Designed and developed a full-stack personal portfolio website with React frontend and Flask backend. Implemented features including work experience showcase, project gallery, blog, and AI assistant for answering questions about me.",
+      "technologies": ["React", "Flask", "Python", "JavaScript", "HTML/CSS"],
+      "github": "github.com/abhinavpaidisetti/portfolio-website",
+      "live": "abhinavpaidisetti.me",
+      "highlights": [
+        "Responsive design works across all devices",
+        "Integrated AI chat assistant using Google's Gemini API",
+        "Implemented SEO best practices for better discoverability"
+      ]
+    },
+    {
+      "name": "Healthcare Management System",
+      "description": "Built a comprehensive healthcare management system that helps medical professionals track patient records, appointments, and treatment plans. Implemented machine learning algorithms to predict patient readmission risk based on historical data.",
+      "technologies": ["Python", "Django", "React", "TensorFlow", "PostgreSQL"],
+      "github": "github.com/abhinavpaidisetti/healthcare-management",
+      "highlights": [
+        "Reduced administrative workload by 40% in pilot clinic",
+        "Achieved 85% accuracy in readmission prediction model",
+        "Implemented HIPAA-compliant data storage and access controls"
+      ]
+    },
+    {
+      "name": "Real-time Collaboration Tool",
+      "description": "Developed a real-time collaboration tool for developers that allows simultaneous code editing, video conferencing, and task management. Implemented WebRTC for peer-to-peer communication and Socket.io for real-time updates.",
+      "technologies": ["JavaScript", "Node.js", "Socket.io", "WebRTC", "MongoDB"],
+      "github": "github.com/abhinavpaidisetti/dev-collab",
+      "highlights": [
+        "Supported simultaneous editing by up to 20 users with minimal latency",
+        "Implemented end-to-end encryption for all communications",
+        "Featured in a developer community showcase"
+      ]
+    }
+  ],
+  "achievements_details": [
+    {
+      "title": "Outstanding Performance Award",
+      "organization": "Tech Company",
+      "date": "December 2022",
+      "description": "Recognized for exceptional contributions to the team's success, including leading a critical project that launched ahead of schedule and exceeded KPI targets by 25%."
+    },
+    {
+      "title": "Hackathon Winner",
+      "organization": "TechFest 2021",
+      "date": "March 2021",
+      "description": "First place in a 48-hour hackathon for developing an innovative solution that addressed urban mobility challenges through an AI-powered route optimization algorithm."
+    },
+    {
+      "title": "Open Source Contributor",
+      "organization": "GitHub",
+      "date": "2020 - Present",
+      "description": "Active contributor to several open-source projects with over 50 accepted pull requests. Maintainer of a utility library with 500+ stars."
+    }
+  ],
+  "blog_posts_details": [
+    {
+      "title": "Getting Started with React: A Beginner's Guide",
+      "date": "2023-01-15",
+      "summary": "A comprehensive guide to setting up and using React for web development, covering core concepts and best practices.",
+      "content": "React has revolutionized how we build web applications with its component-based architecture and efficient DOM updates. This tutorial walks through setting up your first React project, understanding JSX, component lifecycle, state management, and hooks. You'll learn how to create reusable components, manage application state, and optimize performance. By the end, you'll have a solid foundation to build modern, interactive web applications.",
+      "tags": ["React", "JavaScript", "Web Development", "Frontend"]
+    },
+    {
+      "title": "Python Tips and Tricks for Better Code",
+      "date": "2022-11-20",
+      "summary": "Useful Python techniques to improve your coding efficiency and write more elegant, maintainable code.",
+      "content": "Python's simplicity and readability make it a favorite among developers, but there are many lesser-known features that can make your code even more powerful and concise. This post covers list comprehensions, generators, decorators, context managers, and functional programming tools like map, filter, and reduce. You'll also learn about performance optimization techniques, debugging tricks, and how to write more Pythonic code that follows the language's philosophy of readability and simplicity.",
+      "tags": ["Python", "Programming", "Tips", "Best Practices"]
+    },
+    {
+      "title": "Machine Learning in Production: Lessons Learned",
+      "date": "2022-08-05",
+      "summary": "Real-world insights from deploying machine learning models in production environments.",
+      "content": "Building a machine learning model is just the beginning; deploying and maintaining it in production brings a whole new set of challenges. This post shares practical lessons from implementing ML systems in real-world applications, covering model versioning, monitoring, A/B testing, and handling concept drift. You'll learn about the importance of proper infrastructure, the challenges of data pipeline management, and strategies for ensuring your models perform reliably in production environments where conditions constantly change.",
+      "tags": ["Machine Learning", "MLOps", "Production", "Data Science"]
+    }
+  ],
+  "personal_interests": [
+    "Hiking and outdoor exploration",
+    "Participating in hackathons and tech meetups",
+    "Playing guitar and composing music",
+    "Reading science fiction and technical books",
+    "Contributing to open-source software projects"
+  ],
+  "languages": [
+    {"name": "English", "proficiency": "Fluent"},
+    {"name": "Hindi", "proficiency": "Native"},
+    {"name": "Telugu", "proficiency": "Native"}
+  ],
+  "faqs": [
+    {
+      "question": "What technologies do you specialize in?",
+      "answer": "I specialize in full-stack web development with React, Node.js, and Python. I also have expertise in machine learning and data science, particularly using TensorFlow and PyTorch."
+    },
+    {
+      "question": "Are you available for freelance work?",
+      "answer": "Yes, I'm selectively available for freelance projects, particularly those involving web application development, AI integration, or data science. Please contact me with project details to discuss potential collaboration."
+    },
+    {
+      "question": "What is your preferred work environment?",
+      "answer": "I thrive in collaborative environments that value innovation and continuous learning. I'm comfortable working both remotely and in-office, and have experience with agile development methodologies."
+    },
+    {
+      "question": "How can I contact you?",
+      "answer": "You can reach me via email at abhinavpaidisetti@gmail.com or connect with me on LinkedIn. I typically respond within 24-48 hours."
+    }
+  ]
+} 

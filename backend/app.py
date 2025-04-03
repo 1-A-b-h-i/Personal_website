@@ -1,10 +1,13 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 import json
 import os
+import uuid
+from rag_assistant import get_response as rag_get_response, clear_conversation
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24))
+CORS(app, supports_credentials=True)  # Enable CORS with credentials support
 
 # Load data from JSON file
 def load_data():
@@ -45,33 +48,63 @@ def get_blog_post(post_id):
         return jsonify(post)
     return jsonify({"error": "Post not found"}), 404
 
+@app.route('/api/chat/session', methods=['GET'])
+def get_session():
+    """Create or retrieve a chat session ID."""
+    if 'chat_session_id' not in session:
+        session['chat_session_id'] = str(uuid.uuid4())
+    
+    return jsonify({
+        "session_id": session['chat_session_id']
+    })
+
+@app.route('/api/chat/clear', methods=['POST'])
+def clear_chat():
+    """Clear the current chat session history."""
+    session_id = request.json.get('session_id')
+    
+    if not session_id and 'chat_session_id' in session:
+        session_id = session['chat_session_id']
+    
+    if session_id:
+        clear_conversation(session_id)
+        return jsonify({"message": "Conversation history cleared"})
+    
+    return jsonify({"error": "No session ID provided"}), 400
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.json
     if not data or 'message' not in data:
         return jsonify({"error": "No message provided"}), 400
     
-    user_message = data['message'].lower()
+    user_message = data['message']
     
-    # Load AI responses from JSON
-    ai_data = load_data()
-    ai_responses = ai_data.get("ai_responses", {})
+    # Get session ID from request or create a new one
+    session_id = data.get('session_id')
+    if not session_id and 'chat_session_id' in session:
+        session_id = session['chat_session_id']
+    if not session_id:
+        session_id = str(uuid.uuid4())
+        session['chat_session_id'] = session_id
     
-    # Simple keyword matching for AI responses
-    if "who is abhinav" in user_message or "about abhinav" in user_message:
-        response = ai_responses.get("who is abhinav", ai_responses.get("default", ""))
-    elif "skills" in user_message or "what can abhinav do" in user_message:
-        response = ai_responses.get("what are abhinav's skills", ai_responses.get("default", ""))
-    elif "projects" in user_message or "work" in user_message:
-        response = ai_responses.get("what projects has abhinav worked on", ai_responses.get("default", ""))
-    elif "education" in user_message or "study" in user_message:
-        response = ai_responses.get("education", ai_responses.get("default", ""))
-    elif "contact" in user_message or "email" in user_message or "reach" in user_message:
-        response = ai_responses.get("contact", ai_responses.get("default", ""))
-    else:
-        response = ai_responses.get("default", "I don't have information about that.")
-    
-    return jsonify({"response": response})
+    try:
+        # Use the RAG assistant to generate response with session ID
+        response = rag_get_response(user_message, session_id)
+        return jsonify({
+            "response": response,
+            "session_id": session_id
+        })
+    except Exception as e:
+        print(f"Error generating response: {e}")
+        # Fallback to basic responses if there's an error
+        ai_data = load_data()
+        ai_responses = ai_data.get("ai_responses", {})
+        fallback_response = ai_responses.get("default", "I'm having trouble processing your request right now.")
+        return jsonify({
+            "response": fallback_response,
+            "session_id": session_id
+        })
 
 @app.route('/api/contact', methods=['POST'])
 def submit_contact():
