@@ -1,197 +1,303 @@
 {
   "basic_info": {
     "name": "Abhinav Paidisetti",
-    "title": "Software Engineer",
-    "location": "Hyderabad, India",
+    "title": "Computer Science and Business Systems Student",
+    "location": "SASTRA University, India",
     "email": "abhinavpaidisetti@gmail.com",
-    "linkedin": "linkedin.com/in/abhinavpaidisetti",
+    "linkedin": "https://www.linkedin.com/in/abhinav-paidisetti-a23186181/",
     "github": "github.com/abhinavpaidisetti",
     "website": "abhinavpaidisetti.me",
-    "summary": "Passionate software engineer with expertise in web development, machine learning and data science. Dedicated to creating innovative solutions that solve real-world problems."
+    "summary": "B.Tech 3rd Year Computer Science and Business Systems student with strong expertise in AI/ML and web development. Actively involved in AI research and application development. Currently working as an SDE Intern at Wizcom Technologies and serving as a coordinator at SALVO, SASTRA's AI club.",
+    "dob": "19th July 2004",
+    "age": 20,
+    "gender": "Male",
+    "pronouns": "He/Him",
+    "nationality": "Indian"
   },
   "education": [
     {
-      "degree": "Bachelor of Technology in Computer Science",
-      "school": "Indian Institute of Technology Hyderabad",
-      "location": "Hyderabad, India",
-      "period": "2020 - 2024",
-      "achievements": [
-        "Graduated with honors",
-        "Specialized in Artificial Intelligence and Machine Learning",
-        "Research assistant in the Computer Vision lab"
-      ]
+      "degree": "Bachelor of Technology in Computer Science and Business Systems",
+      "school": "SASTRA University",
+      "location": "India",
+      "period": "Current - 3rd Year",
+      "achievements": []
+    },
+    {
+      "degree": "School Education (Grade 9-10)",
+      "school": "Delhi Public School (DPS)",
+      "location": "Visakhapatnam, India",
+      "period": "",
+      "achievements": []
     }
   ],
   "skills": {
-    "programming_languages": ["JavaScript", "Python", "Java", "C++", "SQL"],
-    "web_technologies": ["React", "Node.js", "Express", "HTML/CSS", "Vue.js"],
-    "frameworks_libraries": ["TensorFlow", "PyTorch", "Flask", "Django", "Bootstrap"],
-    "databases": ["MongoDB", "MySQL", "PostgreSQL", "Firebase"],
-    "cloud_platforms": ["AWS", "GCP", "Azure", "Heroku"],
-    "tools": ["Git", "Docker", "Kubernetes", "Jira", "Figma"],
-    "soft_skills": ["Team Leadership", "Project Management", "Technical Writing", "Public Speaking"]
+    "programming_languages": ["C", "C++", "Python", "R", "JavaScript", "PHP", "SQL"],
+    "web_technologies": ["HTML", "CSS", "JavaScript", "ReactJS", "MongoDB"],
+    "frameworks_libraries": ["Flask"],
+    "databases": ["MySQL", "MongoDB"],
+    "soft_skills": ["Analytical problem-solving", "Public speaking", "MS Office tools"],
+    "ai_ml_expertise": ["Machine Learning", "Deep Learning", "Computer Vision", "Large Language Models", "Neural Networks", "Data Analysis"]
   },
   "experience_details": [
     {
-      "title": "Software Engineer",
-      "company": "Tech Company",
-      "location": "Hyderabad, India",
-      "period": "Jan 2022 - Present",
-      "description": "Lead developer for multiple web applications using React.js and Node.js. Implemented new features and improved existing functionality resulting in a 30% increase in user engagement. Collaborated with cross-functional teams including product managers, designers, and other engineers to deliver high-quality software products on schedule.",
-      "achievements": [
-        "Reduced API response time by 40% through optimization of database queries",
-        "Implemented CI/CD pipeline that decreased deployment time by 60%",
-        "Mentored junior developers and led technical knowledge-sharing sessions"
-      ],
-      "technologies": ["React", "Node.js", "MongoDB", "AWS", "Docker"]
-    },
-    {
-      "title": "Junior Developer",
-      "company": "Startup Inc.",
-      "location": "Hyderabad, India",
-      "period": "May 2020 - Dec 2021",
-      "description": "Developed frontend components using JavaScript and React. Assisted in designing and implementing RESTful APIs. Participated in code reviews and testing to ensure high-quality deliverables. Learned and implemented best practices in software development throughout the product lifecycle.",
-      "achievements": [
-        "Built a responsive dashboard that visualized real-time data analytics",
-        "Contributed to open-source libraries used by the company",
-        "Received 'Rising Star' award for exceptional progress"
-      ],
-      "technologies": ["JavaScript", "React", "HTML/CSS", "Git", "Agile"]
+      "title": "SDE Intern",
+      "company": "Wizcom Technologies",
+      "location": "India",
+      "period": "6th Dec 2024 – 6th Jan 2025",
+      "description": "Developed a full-stack Stock Alert App using React, Flask, MySQL, and Pandas to automate stock price monitoring, trigger alerts, and data analysis.",
+      "achievements": [],
+      "technologies": ["React", "Flask", "MySQL", "Pandas"]
     },
     {
       "title": "Research Intern",
       "company": "IIT Hyderabad",
       "location": "Hyderabad, India",
-      "period": "June 2024 - August 2024",
-      "description": "Conducted research on computer vision applications for autonomous driving. Trained YOLOv8 models for object detection and implemented algorithms for analyzing driver attention based on gaze parameters. Automated data processing and analysis workflows using Python scripts.",
+      "period": "10th June – 10th Sept 2024",
+      "description": "Trained a YOLOv8 model for AOI Detection and analyzed driver attention spans using Gaze Parameters.",
       "achievements": [
         "Achieved 93% accuracy in attention detection model",
-        "Automated 75% of repetitive data processing tasks",
-        "Co-authored a research paper submitted to a national conference"
+        "Generated literature review and wrote batch scripts to automate 75% of tasks"
       ],
-      "technologies": ["YOLOv8", "Gaze Parameters", "Python", "TensorFlow", "OpenCV"]
+      "technologies": ["YOLOv8", "Gaze Parameters", "Python"]
     },
     {
       "title": "Technical Intern",
       "company": "Tech Mahindra",
-      "location": "Hyderabad, India",
-      "period": "May 2024 - June 2024",
-      "description": "Worked on SAP Enterprise Resource Planning systems, focusing on data archiving modules (SARA and SARI). Developed scripts for data migration and cleansing. Completed all assigned tasks with 100% accuracy and ahead of schedule.",
+      "location": "India",
+      "period": "22nd May – 30th June 2024",
+      "description": "Worked on SAP (ERP Model) – Data Archiving (SARA & SARI modules).",
       "achievements": [
-        "Improved data archiving efficiency by 25%",
-        "Created documentation that became standard for new team members",
-        "Received recognition for attention to detail and reliability"
+        "Achieved 100% accuracy in testing and deployment"
       ],
-      "technologies": ["SAP", "Data Archiving", "Python", "SQL", "Excel"]
+      "technologies": ["SAP", "Data Archiving", "ERP Model"]
+    },
+    {
+      "title": "Machine Learning Intern",
+      "company": "Prodigy Infotech",
+      "location": "Remote",
+      "period": "1st April – 30th April 2024",
+      "description": "Worked as a Machine Learning Intern, analyzing datasets and developing prediction models.",
+      "achievements": [],
+      "technologies": ["Machine Learning", "Data Analysis"]
+    },
+    {
+      "title": "Coordinator",
+      "company": "SALVO (AI Club of SASTRA University)",
+      "location": "SASTRA University, India",
+      "period": "Current",
+      "description": "Serving as a coordinator for SALVO, the official AI club of SASTRA University. Organizing workshops, hackathons, and technical sessions on AI/ML technologies.",
+      "achievements": [
+        "Introduced students to cutting-edge AI tools including Perplexity"
+      ],
+      "technologies": ["AI/ML", "Community Building", "Technical Leadership"]
+    },
+    {
+      "title": "Co-founder",
+      "company": "Strategy Consulting Club",
+      "location": "SASTRA University, India",
+      "period": "Current",
+      "description": "Co-founding a strategy consulting club on campus to help students develop business strategy and consulting skills.",
+      "achievements": [],
+      "technologies": ["Business Strategy", "Consulting", "Leadership"]
     }
   ],
   "projects": [
     {
       "name": "Personal Portfolio Website",
-      "description": "Designed and developed a full-stack personal portfolio website with React frontend and Flask backend. Implemented features including work experience showcase, project gallery, blog, and AI assistant for answering questions about me.",
-      "technologies": ["React", "Flask", "Python", "JavaScript", "HTML/CSS"],
-      "github": "github.com/abhinavpaidisetti/portfolio-website",
+      "description": "Personal portfolio website built with modern web technologies.",
+      "technologies": ["Web Technologies"],
+      "github": "",
       "live": "abhinavpaidisetti.me",
+      "highlights": []
+    },
+    {
+      "name": "ML Prediction & Classification Models",
+      "description": "Developed various machine learning models for prediction and classification tasks, applying different algorithms and techniques to improve accuracy and performance.",
+      "technologies": ["Python", "Scikit-learn", "Pandas", "NumPy", "Machine Learning Algorithms"],
+      "github": "",
       "highlights": [
-        "Responsive design works across all devices",
-        "Integrated AI chat assistant using Google's Gemini API",
-        "Implemented SEO best practices for better discoverability"
+        "Implemented various classification algorithms with high accuracy"
       ]
     },
     {
-      "name": "Healthcare Management System",
-      "description": "Built a comprehensive healthcare management system that helps medical professionals track patient records, appointments, and treatment plans. Implemented machine learning algorithms to predict patient readmission risk based on historical data.",
-      "technologies": ["Python", "Django", "React", "TensorFlow", "PostgreSQL"],
-      "github": "github.com/abhinavpaidisetti/healthcare-management",
+      "name": "Computer Vision Applications",
+      "description": "Created deep learning applications for image detection and recognition using computer vision techniques and neural network architectures.",
+      "technologies": ["TensorFlow", "PyTorch", "OpenCV", "CNN", "Deep Learning"],
+      "github": "",
       "highlights": [
-        "Reduced administrative workload by 40% in pilot clinic",
-        "Achieved 85% accuracy in readmission prediction model",
-        "Implemented HIPAA-compliant data storage and access controls"
+        "Developed object detection and image recognition systems"
       ]
     },
     {
-      "name": "Real-time Collaboration Tool",
-      "description": "Developed a real-time collaboration tool for developers that allows simultaneous code editing, video conferencing, and task management. Implemented WebRTC for peer-to-peer communication and Socket.io for real-time updates.",
-      "technologies": ["JavaScript", "Node.js", "Socket.io", "WebRTC", "MongoDB"],
-      "github": "github.com/abhinavpaidisetti/dev-collab",
+      "name": "LLM Exploration Projects",
+      "description": "Currently exploring Large Language Models, including fine-tuning, prompt engineering, and application development.",
+      "technologies": ["Transformers", "LLMs", "NLP", "Python"],
+      "github": "",
       "highlights": [
-        "Supported simultaneous editing by up to 20 users with minimal latency",
-        "Implemented end-to-end encryption for all communications",
-        "Featured in a developer community showcase"
+        "Actively researching and implementing LLM-based solutions"
       ]
     }
   ],
   "achievements_details": [
     {
-      "title": "Outstanding Performance Award",
-      "organization": "Tech Company",
-      "date": "December 2022",
-      "description": "Recognized for exceptional contributions to the team's success, including leading a critical project that launched ahead of schedule and exceeded KPI targets by 25%."
-    },
-    {
       "title": "Hackathon Winner",
-      "organization": "TechFest 2021",
-      "date": "March 2021",
-      "description": "First place in a 48-hour hackathon for developing an innovative solution that addressed urban mobility challenges through an AI-powered route optimization algorithm."
-    },
-    {
-      "title": "Open Source Contributor",
-      "organization": "GitHub",
-      "date": "2020 - Present",
-      "description": "Active contributor to several open-source projects with over 50 accepted pull requests. Maintainer of a utility library with 500+ stars."
+      "organization": "HCLTech",
+      "date": "2024",
+      "description": "Won ₹20,000 INR at a hackathon hosted by HCLTech."
     }
   ],
-  "blog_posts_details": [
-    {
-      "title": "Getting Started with React: A Beginner's Guide",
-      "date": "2023-01-15",
-      "summary": "A comprehensive guide to setting up and using React for web development, covering core concepts and best practices.",
-      "content": "React has revolutionized how we build web applications with its component-based architecture and efficient DOM updates. This tutorial walks through setting up your first React project, understanding JSX, component lifecycle, state management, and hooks. You'll learn how to create reusable components, manage application state, and optimize performance. By the end, you'll have a solid foundation to build modern, interactive web applications.",
-      "tags": ["React", "JavaScript", "Web Development", "Frontend"]
-    },
-    {
-      "title": "Python Tips and Tricks for Better Code",
-      "date": "2022-11-20",
-      "summary": "Useful Python techniques to improve your coding efficiency and write more elegant, maintainable code.",
-      "content": "Python's simplicity and readability make it a favorite among developers, but there are many lesser-known features that can make your code even more powerful and concise. This post covers list comprehensions, generators, decorators, context managers, and functional programming tools like map, filter, and reduce. You'll also learn about performance optimization techniques, debugging tricks, and how to write more Pythonic code that follows the language's philosophy of readability and simplicity.",
-      "tags": ["Python", "Programming", "Tips", "Best Practices"]
-    },
-    {
-      "title": "Machine Learning in Production: Lessons Learned",
-      "date": "2022-08-05",
-      "summary": "Real-world insights from deploying machine learning models in production environments.",
-      "content": "Building a machine learning model is just the beginning; deploying and maintaining it in production brings a whole new set of challenges. This post shares practical lessons from implementing ML systems in real-world applications, covering model versioning, monitoring, A/B testing, and handling concept drift. You'll learn about the importance of proper infrastructure, the challenges of data pipeline management, and strategies for ensuring your models perform reliably in production environments where conditions constantly change.",
-      "tags": ["Machine Learning", "MLOps", "Production", "Data Science"]
-    }
+  "certifications": [
+    "BCG Data Science Internship (by Forage)",
+    "Introduction to Large Language Models [NPTEL]",
+    "Robotics Certification course [SASTRA - MHI TC]",
+    "IBM AI Engineering Professional Certificate (ongoing)",
+    "Introduction to Generative AI [Google Cloud Skills Boost]",
+    "Introduction to Cloud computing [NPTEL]",
+    "React Basic [Meta, Coursera]"
   ],
   "personal_interests": [
-    "Hiking and outdoor exploration",
-    "Participating in hackathons and tech meetups",
-    "Playing guitar and composing music",
-    "Reading science fiction and technical books",
-    "Contributing to open-source software projects"
+    "Traveling",
+    "Swimming",
+    "Reading",
+    "Music",
+    "Construction Technology",
+    "Carbon Capturing Technology",
+    "Business Case Studies",
+    "Biking",
+    "Hiking",
+    "Exploring places",
+    "Photography",
+    "Cooking",
+    "Technology and Gadgets"
   ],
+  "hobbies_details": {
+    "sports": "Doesn't actively play sports but follows cricket and F1 as a neutral supporter. Plays badminton occasionally.",
+    "music": "Prefers songs with great lyrics. Believes most modern songs lack lyrical depth.",
+    "art": "Not creative in drawing or painting, but appreciates photography as an art form. Dislikes taking many photos.",
+    "diy_projects": "Automates processes on his laptop in free time. Built a self-balancing bot and completed a Ministry of Heavy Industries course on Industrial robots.",
+    "travel_preferences": "Prefers beaches over mountains. Dreams of traveling the world.",
+    "gaming": "Hasn't played games for a long time but excels when fully engaged in a game.",
+    "reading": "Has read books like 'Train to Pakistan', 'The Clocks' (Agatha Christie), 'Can't Hurt Me', and all Chetan Bhagat books.",
+    "cooking": "Excellent cook who enjoys preparing Indian dishes and experimenting with various cuisines. Self-described foodie who enjoys food anytime, anywhere.",
+    "collecting": "Maintains a modest currency collection from approximately 10 countries."
+  },
+  "cognitive_abilities": {
+    "intelligence": "High IQ with excellent problem-solving skills and ability to process complex ideas.",
+    "memory": "Forgets things he doesn't consider important. Has good working memory for tasks.",
+    "attention": "Can get distracted easily if not fully engaged. Not impulsive but easily distracted.",
+    "critical_thinking": "Strong analytical abilities and logical reasoning.",
+    "creativity": "Considered creative and original by peers with ability to think outside the box.",
+    "learning_speed": "Learns new information and skills very quickly with some challenges in long-term retention.",
+    "decision_making": "Has difficulty making decisions but has a high risk appetite."
+  },
+  "emotional_intelligence": {
+    "self_awareness": "Emotionally strong with good understanding of own emotions.",
+    "self_regulation": "Very controlled with great management of emotions.",
+    "motivation": "Recently developed stronger drive to set and achieve goals.",
+    "empathy": "Shows somewhat lower empathy and sensitivity to others' emotions.",
+    "social_skills": "Great social and communication skills with good conflict resolution abilities.",
+    "resilience": "High emotional resilience with strong ability to recover from setbacks and high tolerance for frustration."
+  },
+  "mental_health": {
+    "stress_management": "Doesn't get stressed easily. Requires good food to cope with stress.",
+    "anxiety": "Experiences anxiety at manageable levels.",
+    "mood": "Controlled and happy mood most of the time.",
+    "self_esteem": "High self-confidence despite feeling negative about physical appearance.",
+    "attention_issues": "Shows signs of acute ADHD.",
+    "sleep_patterns": "Gets 8 hours of sleep but with irregular patterns. Remains active regardless of sleep quality."
+  },
+  "personality_traits": {
+    "openness": "Extremely curious and open to new experiences.",
+    "conscientiousness": "Organized and goal-oriented but tends to make last-minute submissions.",
+    "extraversion": "Comfortable in social situations, equally enjoys social interactions and solitude.",
+    "agreeableness": "Compassionate and cooperative but may hesitate if too much help is required.",
+    "emotional_stability": "Very stable with good handling of negative emotions."
+  },
+  "resilience_factors": {
+    "perseverance": "Very high ability to push through challenges in professional settings.",
+    "adaptability": "Adapts easily and quickly to changing circumstances.",
+    "problem_solving": "Strongly focused on addressing issues with solutions.",
+    "optimism": "Mostly positive outlook that maintains hope in adversity."
+  },
+  "lifestyle": {
+    "sleep_habits": "Irregular sleep schedule.",
+    "shopping_preferences": "Likes expensive brands but dresses simply.",
+    "technology_usage": "Very high usage of technology.",
+    "social_life": "Has a small, supportive friend group (especially Hrishikesh, Shanmukh and Rajashekar). Enjoys dinners with friends.",
+    "time_management": "Struggles with time management but actively working to improve.",
+    "living_situation": "Lives in a small apartment with parents.",
+    "transportation_interests": "Loves high-end sedans, SUVs, muscle cars, and sporty vehicles. Aspires to own several.",
+    "financial_habits": "Tends to spend all pocket money by month's end."
+  },
+  "relationship_status": "Never been in a romantic relationship. Maintains good relationships with family members and friends.",
+  "travel_history": {
+    "international": "Qatar, Sri Lanka",
+    "domestic": "Most states of India",
+    "residence_history": "Has lived in Rajasthan, Uttar Pradesh, Andhra Pradesh, Telangana, and Tamil Nadu during different years of schooling."
+  },
   "languages": [
     {"name": "English", "proficiency": "Fluent"},
-    {"name": "Hindi", "proficiency": "Native"},
-    {"name": "Telugu", "proficiency": "Native"}
+    {"name": "Hindi", "proficiency": "Fluent"},
+    {"name": "Telugu", "proficiency": "Fluent"},
+    {"name": "Tamil", "proficiency": "Basic Understanding"}
   ],
+  "work_habits": {
+    "work_style": "Can work both independently and collaboratively. Highly cooperative and comfortable in collaborative environment.",
+    "leadership_experience": "Good at leading, guiding and managing a team proved in various occasions in the university coursework",
+    "time_management": "Not a strong point",
+    "organization": "Reasonably good"
+  },
+  "personal_details": {
+    "height": "~172 cm",
+    "weight": "~60 kg",
+    "hair_color": "Black",
+    "eye_color": "Black",
+    "complexion": "Slightly dark",
+    "fitness": "Fit (does running & gym at irregular intervals)",
+    "food_preferences": "Loves non-veg, especially chicken"
+  },
+  "online_profiles": {
+    "portfolio": "abhinavpaidisetti.me",
+    "linkedin": "https://www.linkedin.com/in/abhinav-paidisetti-a23186181/",
+    "tuf_coding": "https://takeuforward.org/plus/profile/1_a_b_h_i_n_a_v"
+  },
+  "personal_values": {
+    "political_views": "Feels Indian politicians are not effective. Thinks he can do better if in power or as a consultant.",
+    "environmental_beliefs": "Believes society needs drastic improvement in environmental conservation.",
+    "philosophical_beliefs": "Believes in working towards what you like and remembering the people you do it for.",
+    "cultural_preferences": "Fan of Indian cultures and somewhat traditional.",
+    "ethical_standards": "Always stands for what's right."
+  },
+  "personal_goals": {
+    "short_term": "Work, start a business, scale it and attain financial freedom.",
+    "long_term": "Pursue M.Tech/MSc and MBA, obtain a pilot's license, own a good mansion, build generational wealth and contribute to philanthropic work."
+  },
+  "technical_interests": {
+    "current_focus": "Large Language Models, Computer Vision, and AI applications",
+    "continuous_learning": "Frequently visits labs.google.com and stays updated with the latest technology tools and advancements",
+    "coding_activities": "Actively engaged in DSA (Data Structures and Algorithms) practice and web development",
+    "community_contributions": "Introduced Perplexity to SASTRA students, regularly shares tech resources with peers"
+  },
   "faqs": [
     {
       "question": "What technologies do you specialize in?",
-      "answer": "I specialize in full-stack web development with React, Node.js, and Python. I also have expertise in machine learning and data science, particularly using TensorFlow and PyTorch."
+      "answer": "I specialize in AI/ML technologies including Machine Learning, Deep Learning, and Computer Vision. I'm currently exploring Large Language Models; web development using React, Flask, and MySQL."
     },
     {
-      "question": "Are you available for freelance work?",
-      "answer": "Yes, I'm selectively available for freelance projects, particularly those involving web application development, AI integration, or data science. Please contact me with project details to discuss potential collaboration."
+      "question": "What are your educational qualifications?",
+      "answer": "I'm currently in my 3rd year of B.Tech in Computer Science and Business Systems at SASTRA University. I'm also pursuing a Minor Specialization Degree in 'Innovation and Entrepreneurship'."
     },
     {
-      "question": "What is your preferred work environment?",
-      "answer": "I thrive in collaborative environments that value innovation and continuous learning. I'm comfortable working both remotely and in-office, and have experience with agile development methodologies."
+      "question": "What are your current technical interests?",
+      "answer": "I'm deeply interested in AI advancements, particularly in Large Language Models. I actively follow the latest tech developments and frequently explore resources like labs.google.com. I'm also enhancing my DSA skills and web development capabilities."
     },
     {
-      "question": "How can I contact you?",
-      "answer": "You can reach me via email at abhinavpaidisetti@gmail.com or connect with me on LinkedIn. I typically respond within 24-48 hours."
+      "question": "What are some of your DIY projects?",
+      "answer": "I enjoy automating processes on my laptop in my free time. I've built a self-balancing bot and completed a Ministry of Heavy Industries course on Industrial robots. I plan to automate my entire home in the future."
+    },
+    {
+      "question": "How would you describe your personality?",
+      "answer": "I'm extremely curious and open to new experiences. I have high self-confidence and emotional stability. I adapt quickly to changing circumstances and I'm strongly focused on finding solutions to problems. I'm comfortable in social situations but equally enjoy solitude."
     }
   ]
 } 

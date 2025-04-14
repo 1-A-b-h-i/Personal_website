@@ -77,13 +77,36 @@ class RAGAssistant:
         self.conversations = {}
         
         self.system_instructions = """
-        You are an AI assistant for Abhinav Paidisetti's personal portfolio website.
-        Your purpose is to answer questions about Abhinav's background, skills, experience, education, 
-        projects, and other professional information.
+        You are JARVIS, an advanced AI assistant for Abhinav Paidisetti's personal portfolio website.
+        Your purpose is to provide comprehensive, detailed information about Abhinav's background, 
+        skills, experience, education, projects, and other professional information ONLY when specifically asked.
         
-        Be helpful, concise, and personable in your responses.
+        Key characteristics of your personality:
+        - Professional and precise in your delivery
+        - Confident but not boastful
+        - Slightly witty and personable when appropriate
+        - Thorough and comprehensive in your responses
+        - Anticipatory of follow-up questions
+        
+        CRITICAL RULES:
+        1. NEVER list or summarize skills, experiences, or qualifications unless directly asked. 
+           Do not preemptively offer to explain skills or provide skill lists.
+        2. DO NOT start your responses with lists of information you can provide.
+        3. Represent skills accurately according to their prominence in Abhinav's experience.
+           Do not overemphasize minor skills like Arduino if they've only been used once.
+        4. Never begin with phrases like "Based on the information provided, I can assist you..."
+        
+        When visitors ask about Abhinav, provide complete and detailed information rather than
+        brief or modest answers. Don't hold back on showcasing his accomplishments, but only
+        discuss skills and achievements when directly relevant to the question being asked.
+        
+        Begin conversations with "How may I assist you today?" or similar professional greetings.
+        DO NOT immediately suggest topics about Abhinav or offer information categories.
+
+        Be helpful, thorough, and personable in your responses.
         If you don't know something, be honest about it rather than making up information.
-        Use a conversational tone and speak as if you are representing Abhinav.
+        Use a conversational tone that is reminiscent of JARVIS from Iron Man - efficient,
+        intelligent, and slightly witty when appropriate.
         
         Use the provided context to answer questions, but feel free to generate natural and
         coherent responses based on the context. You may expand on points in a natural way
@@ -102,18 +125,6 @@ class RAGAssistant:
         - Use code formatting (`) for technical terms when relevant
         - Include links when appropriate
         - Structure your responses with clear paragraphs
-        
-        Example formatting:
-        
-        ## Skills Overview
-        
-        Abhinav has expertise in:
-        
-        * **Front-end Technologies**: React, Vue.js, HTML/CSS
-        * **Back-end Technologies**: Node.js, Django, Flask
-        * **Languages**: JavaScript, Python, Java
-        
-        For more details, please visit his [website](https://abhinavpaidisetti.me).
         """
         
     def _load_knowledge(self) -> Dict[str, Any]:
@@ -235,9 +246,45 @@ class RAGAssistant:
             # Get conversation manager for this session
             conversation = self._get_conversation_manager(session_id)
             
-            # Retrieve relevant context based on the query
-            relevant_docs = self.vector_store.similarity_search(user_message, k=4)
+            # Enhance query with keywords if asking about specific topics
+            enhanced_query = user_message
+            if any(keyword in user_message.lower() for keyword in ["project", "projects", "work", "experience", "job"]):
+                if "project" in user_message.lower() or "projects" in user_message.lower():
+                    enhanced_query = f"{user_message} Abhinav projects ML Prediction Computer Vision LLM Personal Portfolio"
+                if "work" in user_message.lower() or "experience" in user_message.lower() or "job" in user_message.lower():
+                    enhanced_query = f"{user_message} Abhinav work experience SDE Intern Wizcom Research Intern IIT Tech Mahindra ML Coordinator SALVO"
+            
+            # Retrieve relevant context based on the query - increase k for more comprehensive answers
+            relevant_docs = self.vector_store.similarity_search(enhanced_query, k=6)
             context = "\n\n".join([doc.page_content for doc in relevant_docs])
+            
+            # Check if we need more specific content for projects or experience
+            if any(keyword in user_message.lower() for keyword in ["project", "projects"]):
+                project_docs = []
+                for idx, proj in enumerate(self.knowledge_data.get("projects", [])):
+                    proj_text = f"Project: {proj.get('name')}. Description: {proj.get('description')} "
+                    proj_text += f"Technologies: {', '.join(proj.get('technologies', []))}. "
+                    if "github" in proj and proj.get('github'):
+                        proj_text += f"GitHub: {proj.get('github')}. "
+                    if "live" in proj and proj.get('live'):
+                        proj_text += f"Live: {proj.get('live')}. "
+                    proj_text += f"Highlights: {', '.join(proj.get('highlights', []))}"
+                    project_docs.append(proj_text)
+                
+                if project_docs:
+                    context += "\n\nAdditional Project Information:\n" + "\n\n".join(project_docs)
+            
+            if any(keyword in user_message.lower() for keyword in ["work", "experience", "job"]):
+                exp_docs = []
+                for idx, exp in enumerate(self.knowledge_data.get("experience_details", [])):
+                    exp_text = f"Experience: {exp.get('title')} at {exp.get('company')} in {exp.get('location')} ({exp.get('period')}). "
+                    exp_text += f"Description: {exp.get('description')} "
+                    exp_text += f"Achievements: {', '.join(exp.get('achievements', []))}. "
+                    exp_text += f"Technologies used: {', '.join(exp.get('technologies', []))}"
+                    exp_docs.append(exp_text)
+                
+                if exp_docs:
+                    context += "\n\nAdditional Work Experience Information:\n" + "\n\n".join(exp_docs)
             
             # Prepare prompt with context and query
             prompt = f"""

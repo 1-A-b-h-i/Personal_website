@@ -673,14 +673,14 @@ code {
 */
 .ai-chat-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 80vh;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
 }
@@ -1085,8 +1085,9 @@ code {
   }
 
   .ai-chat-container {
-    height: 80vh;
-    margin: 0 10px;
+    height: 85vh;
+    margin: 0 15px;
+    max-width: 100%;
   }
   
   .message-bubble {
@@ -1665,4 +1666,34 @@ code {
 
 .message-bubble em {
   font-style: italic;
+}
+
+.clipboard-icon {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.clipboard-icon:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .clipboard-icon {
+    top: 70px;
+    width: 35px;
+    height: 35px;
+  }
 }

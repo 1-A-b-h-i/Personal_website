@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-
+import { FaClipboard } from 'react-icons/fa';
 
 function HomePage({ welcomeTexts, textIndex }) {
   const navigate = useNavigate();
@@ -14,11 +14,19 @@ function HomePage({ welcomeTexts, textIndex }) {
     navigate('/experience');
   };
 
+  const navigateToClipboard = () => {
+    navigate('/clipboard');
+  };
+
   return (
     <div className="welcome-container">
       <Navbar />
       <div className="content-wrapper">
         <div className="animated-background"></div>
+        
+        <div className="clipboard-icon" onClick={navigateToClipboard}>
+          <FaClipboard size={24} />
+        </div>
         
         <div className="welcome-content">
           <h1 className="welcome-title">Hello, I'm <span className="highlight">Abhinav</span></h1>
