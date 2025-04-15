@@ -79,568 +79,536 @@ const ClipboardPage = () => {
   const notebookData = [
     {
       type: 'markdown',
-      content: '##N-Queen'
+      content: '## Wired Network Simulation'
     },
     {
       type: 'code',
-      content: `def solve_nqueens(board_size):
-    def is_safe(board, row, col):
-        for i in range(row):
-            if board[i] == col or abs(board[i] - col) == row - i:
-                return False
-        return True
+      content: `set ns [new Simulator]
 
-    def solve_nqueens_util(board, row, solutions):
-        if row == board_size:
-            solutions.append(board.copy())
-            return
-        for col in range(board_size):
-            if is_safe(board, row, col):
-                board[row] = col
-                solve_nqueens_util(board, row+1, solutions)
-    solutions = []
-    board = [0]*board_size
-    solve_nqueens_util(board,0,solutions)
-    return solutions
+set tracefile [open out.tr w]  
+$ns trace-all $tracefile
 
-if __name__ =="__main__":
-    try:
-        board_size = int(input("Enter chessboard size : "))
-        if board_size <= 0:
-            print("Board size must be a positive integer")
-        else:
-            solutions = solve_nqueens(board_size)
-            print(f"Found {len(solutions)} solutions : ")
-            for i, solution in enumerate(solutions):
-                print(f"Solution {i+1}: {solution}")
-    except ValueError:
-        print("Invalid Output")`
+set namfile [open out.nam w]  
+$ns namtrace-all $namfile
+
+set n0 [$ns node]  
+set n1 [$ns node]  
+set n2 [$ns node]
+
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail  
+$ns duplex-link $n1 $n2 1Mb 10ms DropTail
+
+$ns queue-limit $n0 $n1 10  
+$ns queue-limit $n1 $n2 10
+
+set tcp [new Agent/TCP]  
+$ns attach-agent $n0 $tcp  
+set sink [new Agent/TCPSink]  
+$ns attach-agent $n2 $sink  
+$ns connect $tcp $sink
+
+set ftp [new Application/FTP]  
+$ftp attach-agent $tcp  
+$ftp set type_ FTP
+
+$ns at 0.1 "$ftp start"  
+$ns at 4.0 "$ftp stop"  
+$ns at 5.0 "finish"
+
+proc finish {} {  
+    global ns tracefile namfile  
+    $ns flush-trace  
+    close $tracefile  
+    close $namfile  
+    exec nam out.nam &  
+    exit 0  
+}
+
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##M-Coloring'
+      content: '## Wireless Network Simulation'
     },
     {
       type: 'code',
-      content: `def is_safe(graph, color, vertex, c):
-    for i in range(len(graph)):
-        if graph[vertex][i] == 1 and color[i] == c:
-            return False
-    return True
+      content: `set val(chan)           Channel/WirelessChannel    
+set val(prop)           Propagation/TwoRayGround   
+set val(netif)          Phy/WirelessPhy            
+set val(mac)            Mac/802_11                 
+set val(ifq)            Queue/DropTail/PriQueue    
+set val(ll)             LL                         
+set val(ant)            Antenna/OmniAntenna        
+set val(ifqlen)         50                         
+set val(nn)             6                          
+set val(rp)             AODV                       
+set val(x)  500   
+set val(y)  500   
 
-def m_coloring_util(graph, m, color, vertex):
-    if vertex == len(graph):
-        return True
+set ns [new Simulator]
 
-    for c in range(1, m + 1):
-        if is_safe(graph, color, vertex, c):
-            color[vertex] = c
+set tracefile [open wireless.tr w]  
+$ns trace-all $tracefile
 
-            if m_coloring_util(graph, m, color, vertex + 1):
-                return True
+set namfile [open wireless.nam w]  
+$ns namtrace-all-wireless $namfile $val(x) $val(y)
 
-            color[vertex] = 0  # Backtrack
+set topo [new Topography]  
+$topo load_flatgrid $val(x) $val(y)
 
-    return False
+create-god $val(nn)
 
-def m_coloring(graph, m):
-    color = [0] * len(graph)
-    if m_coloring_util(graph, m, color, 0):
-        print("Solution:")
-        for i in range(len(color)):
-            print(f"Vertex {i}: Color {color[i]}")
-    else:
-        print("No solution exists")
+set channel1 [new $val(chan)]  
+set channel2 [new $val(chan)]  
+set channel3 [new $val(chan)]
 
+$ns node-config -adhocRouting $val(rp) \\  
+  -llType $val(ll) \\  
+  -macType $val(mac) \\  
+  -ifqType $val(ifq) \\  
+  -ifqLen $val(ifqlen) \\  
+  -antType $val(ant) \\  
+  -propType $val(prop) \\  
+  -phyType $val(netif) \\  
+  -topoInstance $topo \\  
+  -agentTrace ON \\  
+  -macTrace ON \\  
+  -routerTrace ON \\  
+  -movementTrace ON \\  
+  -channel $channel1 
 
-num_vertices = int(input("Enter the number of vertices: "))
-graph = []
-print("Enter the adjacency matrix (space-separated values for each row):")
-for _ in range(num_vertices):
-    row = list(map(int, input().split()))
-    graph.append(row)
+set n0 [$ns node]  
+set n1 [$ns node]  
+set n2 [$ns node]  
+set n3 [$ns node]  
+set n4 [$ns node]  
+set n5 [$ns node]
 
-print("Graph:")
-for row in graph:
-    print(row)
+$n0 random-motion 0  
+$n1 random-motion 0  
+$n2 random-motion 0  
+$n3 random-motion 0  
+$n4 random-motion 0  
+$n5 random-motion 0
 
-M = 3
-m_coloring(graph, M)`
+$ns initial_node_pos $n0 20  
+$ns initial_node_pos $n1 20  
+$ns initial_node_pos $n2 20  
+$ns initial_node_pos $n3 20  
+$ns initial_node_pos $n4 20  
+$ns initial_node_pos $n5 50
+
+$n0 set X_ 10.0  
+$n0 set Y_ 20.0  
+$n0 set Z_ 0.0
+
+$n1 set X_ 210.0  
+$n1 set Y_ 230.0  
+$n1 set Z_ 0.0
+
+$n2 set X_ 100.0  
+$n2 set Y_ 200.0  
+$n2 set Z_ 0.0
+
+$n3 set X_ 150.0  
+$n3 set Y_ 230.0  
+$n3 set Z_ 0.0
+
+$n4 set X_ 430.0  
+$n4 set Y_ 320.0  
+$n4 set Z_ 0.0
+
+$n5 set X_ 270.0  
+$n5 set Y_ 120.0  
+$n5 set Z_ 0.0  
+
+$ns at 1.0 "$n1 setdest 490.0 340.0 25.0"  
+$ns at 1.0 "$n4 setdest 300.0 130.0 5.0"  
+$ns at 1.0 "$n5 setdest 190.0 440.0 15.0"  
+$ns at 20.0 "$n5 setdest 100.0 200.0 30.0"
+
+set tcp [new Agent/TCP]  
+set sink [new Agent/TCPSink]  
+$ns attach-agent $n0 $tcp  
+$ns attach-agent $n5 $sink  
+$ns connect $tcp $sink  
+set ftp [new Application/FTP]  
+$ftp attach-agent $tcp  
+$ns at 1.0 "$ftp start"
+
+set udp [new Agent/UDP]  
+set null [new Agent/Null]  
+$ns attach-agent $n2 $udp  
+$ns attach-agent $n3 $null  
+$ns connect $udp $null  
+set cbr [new Application/Traffic/CBR]  
+$cbr attach-agent $udp  
+$ns at 1.0 "$cbr start"
+
+$ns at 30.0 "finish"
+
+proc finish {} {  
+ global ns tracefile namfile  
+ $ns flush-trace  
+ close $tracefile  
+ close $namfile  
+ exit 0  
+}
+
+puts "Starting Simulation"  
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##Water Jug'
+      content: '## Distance Vector Routing'
     },
     {
       type: 'code',
-      content: `from collections import deque
+      content: `set ns [new Simulator]
 
-def is_goal(state, target):
-    return target in state
+set tracefile [open "dv_routing.tr" w]  
+$ns trace-all $tracefile
 
-def get_next_states(state, A, B):
-    x, y = state
-    return [
-        (A, y),         # Fill Jug A
-        (x, B),         # Fill Jug B
-        (0, y),         # Empty Jug A
-        (x, 0),         # Empty Jug B
-        (x - min(x, B - y), y + min(x, B - y)),  # Pour A → B
-        (x + min(y, A - x), y - min(y, A - x))   # Pour B → A
-    ]
+set n0 [$ns node]  
+set n1 [$ns node]  
+set n2 [$ns node]  
+set n3 [$ns node]  
+set n4 [$ns node]
 
-def bfs(A, B, target):
-    visited = set()
-    queue = deque()
-    parent = {}
+$ns duplex-link $n0 $n1 10Mb 10ms DropTail  
+$ns duplex-link $n1 $n2 10Mb 10ms DropTail  
+$ns duplex-link $n1 $n3 10Mb 15ms DropTail  
+$ns duplex-link $n2 $n4 10Mb 20ms DropTail  
+$ns duplex-link $n3 $n4 10Mb 25ms DropTail
 
-    start = (0, 0)
-    queue.append(start)
-    visited.add(start)
-    parent[start] = None
+set ragent [new Agent/AODV]
 
-    while queue:
-        state = queue.popleft()
-        if is_goal(state, target):
-            # Found the goal, trace the path
-            path = []
-            while state:
-                path.append(state)
-                state = parent[state]
-            path.reverse()
-            return path
+$ns attach-agent $n0 $ragent  
+$ns attach-agent $n1 $ragent  
+$ns attach-agent $n2 $ragent  
+$ns attach-agent $n3 $ragent  
+$ns attach-agent $n4 $ragent
 
-        for next_state in get_next_states(state, A, B):
-            if next_state not in visited:
-                visited.add(next_state)
-                queue.append(next_state)
-                parent[next_state] = state
+set tcp0 [new Agent/TCP]  
+set sink [new Agent/TCPSink]  
+$ns attach-agent $n0 $tcp0  
+$ns attach-agent $n4 $sink  
+$ns connect $tcp0 $sink
 
-    return None
+set cbr [new Application/Traffic/CBR]  
+$cbr set packetSize_ 512  
+$cbr set interval_ 0.5  
+$cbr attach-agent $tcp0
 
-# Example Usage
-if __name__ == '__main__':
-    A = 4   # Capacity of Jug A
-    B = 3   # Capacity of Jug B
-    target = 2
+$ns at 1.0 "$cbr start"
 
-    solution = bfs(A, B, target)
-    if solution:
-        print("Steps to reach the target:")
-        for step in solution:
-            print(f"Jug A: {step[0]}L, Jug B: {step[1]}L")
-    else:
-        print("No solution found.")`
+$ns at 20.0 "finish"
+
+proc finish {} {  
+    global ns tracefile  
+    $ns flush-trace  
+    close $tracefile  
+    exit 0  
+}
+
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##CSP'
+      content: '## DHCP Simulation'
     },
     {
       type: 'code',
-      content: `pip install python-constraint
-from IPython import get_ipython
-from IPython.display import display
-import constraint
+      content: `set ns [new Simulator]
 
-x_min = int(input("Enter minimum value for x : "))
-x_max = int(input("Enter maximum value for x : "))
-y_min = int(input("Enter minimum value for y : "))
-y_max = int(input("Enter maximum value for y : "))
+set tracefile [open "dhcp_output.tr" w]  
+$ns trace-all $tracefile
 
-problem = constraint.Problem()
-problem.addVariable('x', range(x_min, x_max + 1))
-problem.addVariable('y', range(y_min, y_max + 1))
+set client1 [$ns node]  
+set client2 [$ns node]  
+set dhcpServer [$ns node]
 
-def our_constraint(x,y):
-    if x+y >= 20:
-        return True
+$ns duplex-link $client1 $dhcpServer 10Mb 20ms DropTail  
+$ns duplex-link $client2 $dhcpServer 10Mb 20ms DropTail
 
-problem.addConstraint(our_constraint, ['x','y'])
-solutions = problem.getSolutions()
-length = len(solutions)
-print("(x,y) =\\n", end = "")
-for index, solution in enumerate(solutions):
-    print("({},{})".format(solution['x'], solution['y']), end="")
-    if index == length - 1:
-        break
-    print(",")
-print("}")`
+set udpClient1 [new Agent/UDP]  
+set udpClient2 [new Agent/UDP]  
+set udpServer [new Agent/UDP]
+
+$ns attach-agent $client1 $udpClient1  
+$ns attach-agent $client2 $udpClient2  
+$ns attach-agent $dhcpServer $udpServer
+
+$ns connect $udpClient1 $udpServer  
+$ns connect $udpClient2 $udpServer
+
+set dhcpDiscover1 [new Application/Traffic/Exponential]  
+$dhcpDiscover1 set packetSize_ 100   
+$dhcpDiscover1 set burst_time_ 0.5   
+$dhcpDiscover1 set idle_time_ 0.1    
+$dhcpDiscover1 attach-agent $udpClient1
+
+set dhcpDiscover2 [new Application/Traffic/Exponential]  
+$dhcpDiscover2 set packetSize_ 100   
+$dhcpDiscover2 set burst_time_ 0.5  
+$dhcpDiscover2 set idle_time_ 0.1  
+$dhcpDiscover2 attach-agent $udpClient2
+
+$ns at 1.0 "$dhcpDiscover1 start"  
+$ns at 2.0 "$dhcpDiscover2 start"
+
+set dhcpOffer [new Application/Traffic/Exponential]  
+$dhcpOffer set packetSize_ 200   
+$dhcpOffer attach-agent $udpServer
+
+$ns at 1.5 "$dhcpOffer start"  
+$ns at 2.5 "$dhcpOffer start"
+
+proc finish {} {  
+    global ns tracefile  
+    $ns flush-trace  
+    close $tracefile  
+    exit 0  
+}
+
+$ns at 5.0 "finish"
+
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##Crypt_Arithematic'
+      content: '## Link State Routing'
     },
     {
       type: 'code',
-      content: `import itertools
+      content: `set ns [new Simulator]
 
-def get_value(word, substitution):
-    s = 0
-    factor = 1
-    for letter in reversed(word):
-        s += factor * substitution[letter]
-        factor *= 10  # Fix: Multiply factor by 10
-    return s
+set tracefile [open "lsr_routing.tr" w]  
+$ns trace-all $tracefile
 
-def solve2(equation):
-    left, right = equation.lower().replace(' ', '').split('=') # Fix: Remove spaces
-    left = left.split('+')
-    letters = set(right)
-    for word in left:
-        for letter in word:
-            letters.add(letter)
-    letters = list(letters)
-    digits = range(10)
-    for perm in itertools.permutations(digits, len(letters)):
-        sol = dict(zip(letters, perm))
-        if sum(get_value(word, sol) for word in left) == get_value(right, sol):
-            print('+'.join(str(get_value(word, sol)) for word in left) + " = {} (mapping: {})".format(get_value(right, sol), sol))
+set n0 [$ns node]  
+set n1 [$ns node]  
+set n2 [$ns node]  
+set n3 [$ns node]  
+set n4 [$ns node]
 
-# Get user input
-equation = input("Enter the cryptarithmetic equation (e.g., SEND+MORE=MONEY): ")
-solve2(equation)`
+$ns duplex-link $n0 $n1 10Mb 10ms DropTail  
+$ns duplex-link $n1 $n2 10Mb 10ms DropTail  
+$ns duplex-link $n1 $n3 10Mb 15ms DropTail  
+$ns duplex-link $n2 $n4 10Mb 20ms DropTail  
+$ns duplex-link $n3 $n4 10Mb 25ms DropTail
+
+$ns node-config -adhocRouting OLSR
+
+set tcp0 [new Agent/TCP]  
+set sink [new Agent/TCPSink]  
+$ns attach-agent $n0 $tcp0  
+$ns attach-agent $n4 $sink  
+$ns connect $tcp0 $sink
+
+set cbr [new Application/Traffic/CBR]  
+$cbr set packetSize_ 512  
+$cbr set interval_ 0.5  
+$cbr attach-agent $tcp0
+
+$ns at 1.0 "$cbr start"
+
+$ns at 20.0 "finish"
+
+proc finish {} {  
+    global ns tracefile  
+    $ns flush-trace  
+    close $tracefile  
+    exit 0  
+}
+
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##Alpha-Beta'
+      content: '## Sliding Window Protocol'
     },
     {
       type: 'code',
-      content: `import math
-nodes_visited = []
-MAX, MIN = 1000, -1000
+      content: `set ns [new Simulator]
 
-def minimax(cur_depth, node_index, max_turn, scores, target_depth, b_factor, alpha, beta):
-    if cur_depth == target_depth:
-        return scores[node_index]
-    if max_turn:
-        largest = None
-        for i in range(b_factor):
-            index = node_index * b_factor + i
-            if index >= len(scores):
-                continue
-            cur = minimax(cur_depth + 1, index, False, scores, target_depth, b_factor, alpha, beta)
-            if largest is None or cur > largest:
-                largest = cur
-            alpha = max(alpha, largest)
-            nodes_visited.append(cur)
-            if beta <= alpha:
-                break
-        return largest
-    else:
-        smallest = None
-        for i in range(b_factor):
-            index = node_index * b_factor + i
-            if index >= len(scores):
-                continue
-            cur = minimax(cur_depth + 1, index, True, scores, target_depth, b_factor, alpha, beta)
-            if smallest is None or cur < smallest:
-                smallest = cur
-            beta = min(beta, smallest)
-            nodes_visited.append(cur)
-            if beta <= alpha:
-                break
-        return smallest
+set tracefile [open "sliding_window_output.tr" w]  
+$ns trace-all $tracefile
 
-scores = [int(s) for s in input("Enter the scores: ").split()]
-b_factor = int(input("Enter the branching factor: "))
-player = int(input("Maximizer or minimizer? (Enter 1 for maximizer and 0 for minimizer): "))
-tree_depth = math.ceil(math.log(len(scores), b_factor))
-print("The optimal value is:", end="")
-print(minimax(0, 0, player, scores, tree_depth, b_factor, MIN, MAX))
+set n0 [$ns node]  
+set n1 [$ns node]
 
-diff = []
-for i in scores:
-    if i not in nodes_visited:
-        diff.append(i)
-if not diff:
-    print("No nodes were pruned")
-else:
-    print("Pruned nodes are:")
-    for i in diff:
-        print(i, sep='')`
+$ns duplex-link $n0 $n1 10Mb 20ms DropTail
+
+set tcp [new Agent/TCP]  
+$tcp set window_ 5   
+$ns attach-agent $n0 $tcp
+
+set sink [new Agent/TCPSink]  
+$ns attach-agent $n1 $sink
+
+$ns connect $tcp $sink
+
+set cbr [new Application/Traffic/CBR]  
+$cbr set packetSize_ 500   
+$cbr set rate_ 1Mb         
+$cbr attach-agent $tcp
+
+$ns at 0.5 "$cbr start"  
+$ns at 4.5 "$cbr stop"
+
+proc finish {} {  
+    global ns tracefile  
+    $ns flush-trace  
+    close $tracefile  
+    exit 0  
+}
+
+$ns at 5.0 "finish"
+
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##MiniMax'
+      content: '## Leaky Bucket Algorithm'
     },
     {
       type: 'code',
-      content: `import math
+      content: `set ns [new Simulator]
 
-def minimax(cur_depth, node_index, max_turn, scores, target_depth, b_factor):
-    if cur_depth == target_depth:
-        return scores[node_index]
-    if (max_turn):
-        largest = None
-        for i in range(b_factor):
-            index = node_index * b_factor + i
-            if index >= len(scores):
-                continue
-            cur = minimax(cur_depth + 1, index, False, scores, target_depth, b_factor)
-            if largest is None or cur > largest:
-                largest = cur
-        return largest
-    else:
-        smallest = None
-        for i in range(b_factor):
-            index = node_index * b_factor + i
-            if index >= len(scores):
-                continue
-            cur = minimax(cur_depth + 1, index, True, scores, target_depth, b_factor)
-            if smallest is None or cur < smallest:
-                smallest = cur
-        return smallest
+set tf [open leaky.tr w]  
+set nf [open leaky.nam w]  
+$ns trace-all $tf  
+$ns namtrace-all $nf
 
-scores = [int(s) for s in input("Enter the scores: ").split()]
-b_factor = int(input("enter the branching factor: "))
-player = int(input("maximizer or minimizer? (Enter 1 for maximizer and 0 for minimizer): "))
-print(player)
-tree_depth = math.ceil(math.log(len(scores), b_factor))
-print("the optimal value is:", end="")
-print(minimax(0, 0, player, scores, tree_depth, b_factor))`
+set n0 [$ns node]  
+set n1 [$ns node]
+
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail  
+$ns queue-limit $n0 $n1 10
+
+set udp [new Agent/UDP]  
+$ns attach-agent $n0 $udp
+
+set cbr [new Application/Traffic/CBR]  
+$cbr set packetSize_ 500  
+$cbr set interval_ 0.004  
+$cbr attach-agent $udp
+
+set null [new Agent/Null]  
+$ns attach-agent $n1 $null  
+$ns connect $udp $null
+
+$ns at 0.1 "$cbr start"  
+$ns at 4.9 "$cbr stop"  
+$ns at 5.0 "finish"
+
+proc finish {} {  
+    global ns tf nf  
+    $ns flush-trace  
+    close $tf  
+    close $nf  
+    exec nam leaky.nam &  
+    exec awk -f analysis.awk leaky.tr > leaky_analysis.txt &  
+    exit 0  
+}
+
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##Sparse Matrix'
+      content: '## Token Bucket Algorithm'
     },
     {
       type: 'code',
-      content: `def analyze_matrix(matrix):
-    if not matrix:
-        return 0, 0
+      content: `set ns [new Simulator]
 
-    n = len(matrix)
-    visited = [[False] * n for _ in range(n)]
-    max_zeros = 0
-    island_count = 0
+set tf [open token.tr w]  
+set nf [open token.nam w]  
+$ns trace-all $tf  
+$ns namtrace-all $nf
 
-    def dfs(x, y, is_zero_patch):
-        if x < 0 or x >= n or y < 0 or y >= n or visited[x][y]:
-            return 0
-        if (is_zero_patch and matrix[x][y] == 1) or (not is_zero_patch and matrix[x][y] == 0):
-            return 0
+set n0 [$ns node]  
+set n1 [$ns node]
 
-        visited[x][y] = True
-        count = 1
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail  
+$ns queue-limit $n0 $n1 15
 
-        count += dfs(x + 1, y, is_zero_patch)
-        count += dfs(x - 1, y, is_zero_patch)
-        count += dfs(x, y + 1, is_zero_patch)
-        count += dfs(x, y - 1, is_zero_patch)
-        return count
+set udp [new Agent/UDP]  
+$ns attach-agent $n0 $udp
 
-    for i in range(n):
-        for j in range(n):
-            if matrix[i][j] == 0 and not visited[i][j]:
-                max_zeros = max(max_zeros, dfs(i, j, True))
-            elif matrix[i][j] == 1 and not visited[i][j]:
-                island_count += 1
-                dfs(i, j, False)
+set cbr [new Application/Traffic/CBR]  
+$cbr set packetSize_ 500  
+$cbr set interval_ 0.001  
+$cbr attach-agent $udp
 
-    return max_zeros, island_count
+set null [new Agent/Null]  
+$ns attach-agent $n1 $null  
+$ns connect $udp $null
 
+$ns at 0.1 "$cbr start"  
+$ns at 4.9 "$cbr stop"  
+$ns at 5.0 "finish"
 
-matrix = [
-    [1, 0, 0, 1, 1],
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 1],
-    [1, 1, 1, 0, 0],
-    [0, 0, 0, 1, 1]
-]
+proc finish {} {  
+    global ns tf nf  
+    $ns flush-trace  
+    close $tf  
+    close $nf  
+    exec nam token.nam &  
+    exec awk -f analysis.awk token.tr > token_analysis.txt &  
+    exit 0  
+}
 
-
-largest_patch, number_of_islands = analyze_matrix(matrix)
-print("The largest patch of zeros has size:", largest_patch)
-print("The number of islands is:", number_of_islands)`
+$ns run`
     },
     {
       type: 'markdown',
-      content: '##Rotten-Oranges'
+      content: '## DNS Lookup Simulation'
     },
     {
       type: 'code',
-      content: `from collections import deque
+      content: `set ns [new Simulator]
 
-def orangesRotting(grid):
-    if not grid:
-        return -1
+set tracefile [open dns.tr w]  
+set namfile [open dns.nam w]  
+$ns trace-all $tracefile  
+$ns namtrace-all $namfile
 
-    rows, cols = len(grid), len(grid[0])
-    queue = deque()
-    fresh_count = 0
+set client [$ns node]  
+set dns_server [$ns node]
 
-    for r in range(rows):
-        for c in range(cols):
-            if grid[r][c] == 2:
-                queue.append((r, c))
-            elif grid[r][c] == 1:
-                fresh_count += 1
+$ns duplex-link $client $dns_server 1Mb 10ms DropTail
 
-    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    minutes = 0
+set udpClient [new Agent/UDP]  
+set udpServer [new Agent/UDP]  
+$ns attach-agent $client $udpClient  
+$ns attach-agent $dns_server $udpServer
 
-    while queue and fresh_count > 0:
-        for _ in range(len(queue)):
-            x, y = queue.popleft()
-            for dx, dy in directions:
-                nx, ny = x + dx, y + dy
-                if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == 1:
-                    grid[nx][ny] = 2
-                    fresh_count -= 1
-                    queue.append((nx, ny))
-        minutes += 1
+set cbr [new Application/Traffic/CBR]  
+$cbr set packetSize_ 50  
+$cbr set interval_ 0.2 
+$cbr attach-agent $udpClient
 
-    return minutes if fresh_count == 0 else -1
+set null [new Agent/Null]  
+$ns attach-agent $dns_server $null
 
-# Get user input for the grid
-rows = int(input("Enter the number of rows: "))
-cols = int(input("Enter the number of columns: "))
+$ns connect $udpClient $null
 
-grid = []
-print("Enter the grid elements row-wise (0 for empty, 1 for fresh, 2 for rotten):")
-for _ in range(rows):
-    row = list(map(int, input().split()))
-    grid.append(row)
+$ns at 0.5 "$cbr start"  
+$ns at 4.5 "$cbr stop"  
+$ns at 5.0 "finish"
 
-result = orangesRotting(grid)
-print("Minimum time to rot all oranges:", result)`
-    },
-    {
-      type: 'markdown',
-      content: '##Water Connection'
-    },
-    {
-      type: 'code',
-      content: `def find_min_weight_paths(num_nodes, connections):
+proc finish {} {  
+    global ns tracefile namfile  
+    $ns flush-trace  
+    close $tracefile  
+    close $namfile  
+    exec nam dns.nam &  
+    exit 0  
+}
 
-    parents = [0] * (num_nodes + 1)
-    weights = [0] * (num_nodes + 1)
-    children = [0] * (num_nodes + 1)
-
-    for start, end, weight in connections:
-        children[start] = end
-        weights[start] = weight
-        parents[end] = start
-
-    min_weight_paths = []
-    for node in range(1, num_nodes + 1):
-        if parents[node] == 0 and children[node]:  # Check if it's a root node with children.
-            min_weight = float('inf')
-            current_node = node
-
-            while children[current_node] != 0:
-                min_weight = min(min_weight, weights[current_node])
-                current_node = children[current_node]
-
-            min_weight_paths.append((node, current_node, min_weight))
-
-    return min_weight_paths
-
-
-if __name__ == "__main__":
-    num_nodes = int(input("Enter the number of nodes: "))
-    num_connections = int(input("Enter the number of connections: "))
-
-    connections = []
-    print("Enter the connections (start_node end_node weight) one by one:")
-    for _ in range(num_connections):
-        start, end, weight = map(int, input().split())
-        connections.append((start, end, weight))
-
-    paths = find_min_weight_paths(num_nodes, connections)
-    print("Number of independent paths:", len(paths))
-    for start, end, min_weight in paths:
-        print(f"Start Node: {start}, End Node: {end}, Minimum Weight: {min_weight}")`
-    },
-    {
-      type: 'markdown',
-      content: '##Graph Connection'
-    },
-    {
-      type: 'code',
-      content: `def dfs(graph, node, visited):
-    visited.add(node)
-    for neighbor in graph.get(node, []):
-        if neighbor not in visited:
-            dfs(graph, neighbor, visited)
-
-def is_connected(graph):
-    nodes = list(graph.keys())
-    if not nodes:
-        return True
-    visited = set()
-    dfs(graph, nodes[0], visited)
-    return len(visited) == len(nodes)
-
-def get_graph_from_user():
-    graph = {}
-    n = int(input("Enter the number of Nodes: "))
-
-    for _ in range(n):
-        node = input("Enter the node name: ")
-        neighbors = input(f"Enter the neighbors of {node} (comma-separated): ").split(",")
-        neighbors = [neighbor.strip() for neighbor in neighbors]
-        graph[node] = neighbors
-
-    print(graph)
-    if is_connected(graph):
-        print("The graph is connected.")
-    else:
-        print("The graph is disconnected.")
-
-
-get_graph_from_user()`
-    },
-    {
-      type: 'markdown',
-      content: '##Crossover (genetic)'
-    },
-    {
-      type: 'code',
-      content: `def crossover(s1, s2, start, end):
-    s1 = str(s1)
-    s2 = str(s2)
-    s1_list = list(s1)
-    s2_list = list(s2)
-
-    s1_list[start:end], s2_list[start:end] = s2_list[start:end], s1_list[start:end]
-
-    child_s1 = ''.join(s1_list)
-    child_s2 = ''.join(s2_list)
-
-    return child_s1, child_s2
-s1 = int(input("Enter the first parent: "))
-s2 = int(input("Enter the second parent: "))
-start = int(input("Enter the start index: "))
-end = int(input("Enter the end index: "))
-child_s1, child_s2 = crossover(s1, s2, start, end)
-print(f"Original s1: {s1}, Original s2: {s2}")
-print(f"Child s1: {child_s1}, Child s2: {child_s2}")`
-    },
-    {
-      type: 'markdown',
-      content: '##Tic-Tac-Toe'
-    },
-    {
-      type: 'code',
-      content: `def tic_tac_toe(mat):
-    x,o = 0,0
-    coord = []
-    for i in range(3):
-        for j in range(3):
-            if mat[i][j]==1:
-                x+=1
-            elif mat[i][j]==2:
-                o+=1
-            else:
-                coord.append([i,j])
-    return "Player X" if o>x else "Player O",coord
-matrix = [[1, 0, 2],[0, 2, 0],[1, 0, 1]]
-move,coord = tic_tac_toe(matrix)
-print("Next Move Belongs to",move)
-print("Available Moves :",coord)`
+$ns run`
     }
   ];
 
