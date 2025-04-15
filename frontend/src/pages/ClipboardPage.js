@@ -1,11 +1,28 @@
-import React, { useState, useRef } from 'react';
-import { FaCopy, FaCheck, FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import React, { useState, useRef, useEffect } from 'react';
+import { FaCopy, FaCheck, FaChevronDown, FaChevronRight, FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../components/Clipboard/Clipboard.css';
 
 const ClipboardPage = () => {
   const [copiedIndex, setCopiedIndex] = useState(null);
   const [expandedCodes, setExpandedCodes] = useState({});
+  const [stealthMode, setStealthMode] = useState(true);
+  const [showStealthIndicator, setShowStealthIndicator] = useState(false);
   const textAreaRef = useRef(null);
+
+  // Handle keyboard shortcuts for stealth mode
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Toggle stealth mode with Ctrl+Shift+S
+      if (e.ctrlKey && e.shiftKey && e.key === 'S') {
+        setStealthMode(prev => !prev);
+        setShowStealthIndicator(true);
+        setTimeout(() => setShowStealthIndicator(false), 2000);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const copyToClipboard = (text, index) => {
     // Create a temporary textarea element to copy from
@@ -628,9 +645,23 @@ print("Available Moves :",coord)`
   ];
 
   return (
-    <div className="clipboard-page">
+    <div className={`clipboard-page ${stealthMode ? 'stealth-mode' : ''}`}>
+      {showStealthIndicator && (
+        <div className="stealth-indicator">
+          {stealthMode ? 'Stealth Mode: ON' : 'Stealth Mode: OFF'}
+        </div>
+      )}
       <div className="clipboard-container">
-        <h1>Code Clipboard</h1>
+        <div className="clipboard-header">
+          <h1>Code Clipboard</h1>
+          <div className="stealth-toggle" onClick={() => {
+            setStealthMode(prev => !prev);
+            setShowStealthIndicator(true);
+            setTimeout(() => setShowStealthIndicator(false), 2000);
+          }}>
+            {stealthMode ? <FaEyeSlash /> : <FaEye />}
+          </div>
+        </div>
         <div className="notebook">
           {notebookData.map((cell, index) => (
             <div key={index} className={`cell ${cell.type}-cell`}>
