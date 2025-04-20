@@ -53,6 +53,11 @@ function Navbar() {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/productivity" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+              Productivity
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
               Contact
             </Link>

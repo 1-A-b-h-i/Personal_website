@@ -8,6 +8,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
 import ClipboardPage from './pages/ClipboardPage';
+import ProductivityPage from './pages/ProductivityPage';
 
 function App() {
   const [textIndex, setTextIndex] = useState(0);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/chat" element={<AIAssistantPage />} />
         <Route path="/clipboard" element={<ClipboardPage />} />
+        <Route path="/productivity" element={<ProductivityPage />} />
         <Route path="*" element={<HomePage welcomeTexts={welcomeTexts} textIndex={textIndex} />} />
       </Routes>
     </Router>
