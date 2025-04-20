@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaCopy, FaCheck, FaChevronDown, FaChevronRight, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaCopy, FaCheck, FaChevronDown, FaChevronRight, FaEye, FaEyeSlash, FaDownload } from 'react-icons/fa';
 import '../components/Clipboard/Clipboard.css';
 
 const ClipboardPage = () => {
@@ -12,8 +12,8 @@ const ClipboardPage = () => {
   // Handle keyboard shortcuts for stealth mode
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Toggle stealth mode with Ctrl+Shift+S
-      if (e.ctrlKey && e.shiftKey && e.key === 'S') {
+      // Toggle stealth mode with Ctrl+Shift+A
+      if (e.ctrlKey && e.shiftKey && e.key === 'Q') {
         setStealthMode(prev => !prev);
         setShowStealthIndicator(true);
         setTimeout(() => setShowStealthIndicator(false), 2000);
@@ -69,6 +69,34 @@ const ClipboardPage = () => {
     }
   };
 
+  const downloadCode = (text, index, type) => {
+    // Determine file extension based on content type
+    const fileType = type.includes('TCL') ? 'tcl' : 'awk';
+    const filename = `${type.split(' - ')[0].replace(/[^a-zA-Z0-9]/g, '_').toLowerCase()}.${fileType}`;
+    
+    // Create a blob with the code content
+    const blob = new Blob([text], { type: 'text/plain' });
+    
+    // Create a temporary URL for the blob
+    const url = window.URL.createObjectURL(blob);
+    
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.style.display = 'none';
+    
+    // Append the link to the document, click it, and remove it
+    document.body.appendChild(link);
+    link.click();
+    
+    // Clean up
+    window.setTimeout(() => {
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    }, 100);
+  };
+
   const toggleCodeExpansion = (index) => {
     setExpandedCodes(prev => ({
       ...prev,
@@ -79,7 +107,7 @@ const ClipboardPage = () => {
   const notebookData = [
     {
       type: 'markdown',
-      content: '## Wired Network Simulation'
+      content: '## Wired Network Simulation - TCL'
     },
     {
       type: 'code',
@@ -128,7 +156,40 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## Wireless Network Simulation'
+      content: '## Wired Network Simulation - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    total_bytes = 0;  
+    start_time = 0;  
+    end_time = 0;  
+}
+
+# Capture the first packet send time  
+$1 == "+" && start_time == 0 {  
+    start_time = $2;  
+}
+
+# Capture the last packet receive time and accumulate the bytes received  
+$1 == "r" {  
+    total_bytes += $9;  # Assuming $8 is the size of the packet  
+    end_time = $2;  
+}
+
+END {  
+    duration = end_time - start_time;  
+    if (duration > 0) {  
+        throughput = (total_bytes * 8) / (duration * 1000000);  # Throughput in Mbps  
+        print "Throughput: " throughput " Mbps";  
+    } else {  
+        print "No packets received.";  
+    }  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## Wireless Network Simulation - TCL'
     },
     {
       type: 'code',
@@ -162,19 +223,19 @@ set channel1 [new $val(chan)]
 set channel2 [new $val(chan)]  
 set channel3 [new $val(chan)]
 
-$ns node-config -adhocRouting $val(rp) \\  
-  -llType $val(ll) \\  
-  -macType $val(mac) \\  
-  -ifqType $val(ifq) \\  
-  -ifqLen $val(ifqlen) \\  
-  -antType $val(ant) \\  
-  -propType $val(prop) \\  
-  -phyType $val(netif) \\  
-  -topoInstance $topo \\  
-  -agentTrace ON \\  
-  -macTrace ON \\  
-  -routerTrace ON \\  
-  -movementTrace ON \\  
+$ns node-config -adhocRouting $val(rp) \\
+  -llType $val(ll) \\
+  -macType $val(mac) \\
+  -ifqType $val(ifq) \\
+  -ifqLen $val(ifqlen) \\
+  -antType $val(ant) \\
+  -propType $val(prop) \\
+  -phyType $val(netif) \\
+  -topoInstance $topo \\
+  -agentTrace ON \\
+  -macTrace ON \\
+  -routerTrace ON \\
+  -movementTrace ON \\
   -channel $channel1 
 
 set n0 [$ns node]  
@@ -260,7 +321,65 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## Distance Vector Routing'
+      content: '## Wireless Network Simulation - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    seqno = -1;   
+    droppedPackets = 0;  
+    receivedPackets = 0;  
+    count = 0;  
+}  
+{  
+    #packet delivery ratio  
+    if($4 == "AGT" && $1 == "s" && seqno < $6) {  
+        seqno = $6;  
+    } else if(($4 == "AGT") && ($1 == "r")) {  
+        receivedPackets++;  
+    } else if ($1 == "D" && $7 == "tcp" && $8 > 512){  
+        droppedPackets++;   
+    }
+
+    #end-to-end delay  
+    if($4 == "AGT" && $1 == "s") {  
+        start_time[$6] = $2;  
+    } else if(($7 == "tcp") && ($1 == "r")) {  
+        end_time[$6] = $2;  
+    } else if($1 == "D" && $7 == "tcp") {  
+        end_time[$6] = -1;  
+    }  
+}  
+    
+END {   
+    for(i=0; i<=seqno; i++) {  
+        if(end_time[i] > 0) {  
+            delay[i] = end_time[i] - start_time[i];  
+        count++;  
+        } else {  
+            delay[i] = -1;  
+        }  
+    }
+
+    for(i=0; i<count; i++) {  
+        if(delay[i] > 0) {  
+            n_to_n_delay = n_to_n_delay + delay[i];  
+        }   
+    }
+
+    n_to_n_delay = n_to_n_delay/count;  
+    print "\\n";  
+    print "GeneratedPackets = " seqno+1;  
+    print "ReceivedPackets = " receivedPackets;  
+    print "Packet Delivery Ratio = " receivedPackets/(seqno+1)*100"%";  
+    print "Total Dropped Packets = " droppedPackets;  
+    print "Average End-to-End Delay = " n_to_n_delay * 1000 " ms";  
+    print "\\n";  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## Distance Vector Routing - TCL'
     },
     {
       type: 'code',
@@ -315,7 +434,33 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## DHCP Simulation'
+      content: '## Distance Vector Routing - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    route_updates = 0;  
+    data_packets = 0;  
+}
+
+# Count routing table updates  
+$1 == "+" && $5 == "tcp" && $7 == "---A---" {  
+    route_updates++;  
+}
+
+# Count data packets sent  
+$1 == "s" && $4 == "tcp" {  
+    data_packets++;  
+}
+
+END {  
+    printf("Total routing updates: %d\\n", route_updates);  
+    printf("Total data packets sent: %d\\n", data_packets);  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## DHCP Simulation - TCL'
     },
     {
       type: 'code',
@@ -377,7 +522,42 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## Link State Routing'
+      content: '## DHCP Simulation - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    dhcp_discover_count = 0;  
+    dhcp_offer_count = 0;  
+    total_delay = 0;  
+}
+
+# Count DHCP Discover packets (from clients)  
+$1 == "+" && $5 == "exp" && $3 == "2" {  
+    dhcp_discover_count++;  
+    discover_time[$3] = $2;  
+}
+
+# Count DHCP Offer packets (from server)  
+$1 == "r" && $5 == "exp" && $3 == "0" {  
+    dhcp_offer_count++;  
+    if ($3 in discover_time) {  
+        total_delay += $2 - discover_time[$3];  
+    }  
+}
+
+END {  
+    # Print statistics  
+    printf("Total DHCP Discover messages: %d\\n", dhcp_discover_count);  
+    printf("Total DHCP Offer messages: %d\\n", dhcp_offer_count);  
+    if (dhcp_offer_count > 0) {  
+        printf("Average DHCP response delay: %.5f seconds\\n", total_delay / dhcp_offer_count);  
+    }  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## Link State Routing - TCL'
     },
     {
       type: 'code',
@@ -426,7 +606,40 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## Sliding Window Protocol'
+      content: '## Link State Routing - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    link_state_updates = 0;  
+    data_packets_sent = 0;  
+    data_packets_received = 0;  
+}
+
+# Count OLSR link state updates  
+$1 == "s" && $4 == "OLSR" && $7 == "LQ-HELLO" {  
+    link_state_updates++;  
+}
+
+# Count data packets sent  
+$1 == "s" && $4 == "tcp" {  
+    data_packets_sent++;  
+}
+
+# Count data packets received  
+$1 == "r" && $4 == "tcp" {  
+    data_packets_received++;  
+}
+
+END {  
+    printf("Total link state updates: %d\\n", link_state_updates);  
+    printf("Total data packets sent: %d\\n", data_packets_sent);  
+    printf("Total data packets received: %d\\n", data_packets_received);  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## Sliding Window Protocol - TCL'
     },
     {
       type: 'code',
@@ -470,7 +683,79 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## Leaky Bucket Algorithm'
+      content: '## Sliding Window Protocol - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    sent_packets = 0;  
+    received_packets = 0;  
+    dropped_packets = 0;  
+    total_delay = 0;  
+    start_time = -1;  
+    end_time = 0;  
+}
+
+# Count sent packets: when a packet is enqueued for transmission  
+$1 == "+" && $5 == "tcp" {  
+    sent_packets++;  
+}
+
+# Count received packets: when a packet reaches its destination  
+$1 == "r" && $5 == "tcp" {  
+    received_packets++;  
+    if (start_time == -1) {  
+        start_time = $2;  
+    }  
+    end_time = $2;  
+}
+
+# Count dropped packets: when a packet is dropped  
+$1 == "d" && $5 == "tcp" {  
+    dropped_packets++;  
+}
+
+# Calculate delay by tracking packet send and receive times using sequence numbers  
+$1 == "r" && $5 == "tcp" {  
+    seq_num = $11;  
+    if (seq_num in send_time) {  
+        delay = $2 - send_time[seq_num];  
+        total_delay += delay;  
+    }  
+}
+
+$1 == "+" && $5 == "tcp" {  
+    seq_num = $11;  
+    send_time[seq_num] = $2;  
+}
+
+END {  
+    # Calculate throughput in bits per second (bps)  
+    simulation_time = end_time - start_time;  
+    throughput = (received_packets * 500 * 8) / simulation_time;
+
+    # Calculate packet loss ratio  
+    packet_loss_ratio = dropped_packets / sent_packets;
+
+    # Calculate average packet delay  
+    if (received_packets > 0) {  
+        avg_delay = total_delay / received_packets;  
+    } else {  
+        avg_delay = 0;  
+    }
+
+    # Print the results  
+    printf("Sent Packets: %d\\n", sent_packets);  
+    printf("Received Packets: %d\\n", received_packets);  
+    printf("Dropped Packets: %d\\n", dropped_packets);  
+    printf("Packet Loss Ratio: %.2f%%\\n", packet_loss_ratio * 100);  
+    printf("Throughput: %.2f bits/sec\\n", throughput);  
+    printf("Average Packet Delay: %.5f seconds\\n", avg_delay);  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## Leaky Bucket Algorithm - TCL'
     },
     {
       type: 'code',
@@ -517,7 +802,64 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## Token Bucket Algorithm'
+      content: '## Leaky Bucket / Token Bucket Analysis - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    sent = 0;  
+    received = 0;  
+    dropped = 0;  
+    start_time = -1;  
+    end_time = 0;  
+    total_bytes = 0;  
+}
+
+{  
+    event = $1;  
+    time = $2;  
+    src = $3;  
+    dst = $4;  
+    pkt_size = $6;  
+    flow_id = $8;
+
+    # Record start time  
+    if (start_time == -1 && event == "+") {  
+        start_time = time;  
+    }
+
+    # Sent packet  
+    if (event == "+" && src == "0") {  
+        sent++;  
+    }
+
+    # Received packet  
+    if (event == "r" && dst == "1") {  
+        received++;  
+        total_bytes += pkt_size;  
+        end_time = time;  
+    }
+
+    # Dropped packet  
+    if (event == "d") {  
+        dropped++;  
+    }  
+}
+
+END {  
+    print "Simulation Analysis Report";  
+    print "--------------------------";  
+    print "Total Packets Sent: ", sent;  
+    print "Total Packets Received: ", received;  
+    print "Total Packets Dropped: ", dropped;  
+    print "Packet Delivery Ratio (%): ", (received / sent) * 100;  
+    print "Packet Drop Ratio (%): ", (dropped / sent) * 100;  
+    print "Throughput (Kbps): ", (total_bytes * 8) / (end_time - start_time) / 1000;  
+}`
+    },
+    {
+      type: 'markdown',
+      content: '## Token Bucket Algorithm - TCL'
     },
     {
       type: 'code',
@@ -564,7 +906,7 @@ $ns run`
     },
     {
       type: 'markdown',
-      content: '## DNS Lookup Simulation'
+      content: '## DNS Lookup Simulation - TCL'
     },
     {
       type: 'code',
@@ -609,6 +951,48 @@ proc finish {} {
 }
 
 $ns run`
+    },
+    {
+      type: 'markdown',
+      content: '## DNS Lookup Simulation - AWK'
+    },
+    {
+      type: 'code',
+      content: `BEGIN {  
+    query_count = 0  
+    response_count = 0  
+    total_delay = 0  
+    completed = 0  
+}
+
+{  
+    # DNS query packet: look for 'cbr' (client -> server)  
+    if ($1 == "+" && $5 == "cbr") {  
+        query_count++  
+        send_time[$11] = $2  
+    }
+
+    # DNS reply received at server (simulate DNS response delay tracking)  
+    if ($1 == "r" && $5 == "cbr") {  
+        if (send_time[$11] != "") {  
+            delay = $2 - send_time[$11]  
+            total_delay += delay  
+            completed++  
+        }  
+    }  
+}
+
+END {  
+    print "DNS Simulation Analysis Report:"  
+    print "Total DNS Queries Sent: " query_count  
+    print "Total DNS Responses Received: " completed  
+    print "Packet Loss: " (query_count - completed)  
+    if (completed > 0) {  
+        print "Average DNS Response Delay: " total_delay / completed " sec"  
+    } else {  
+        print "No successful responses to compute delay."  
+    }  
+}`
     }
   ];
 
@@ -644,20 +1028,38 @@ $ns run`
                       {expandedCodes[index] ? <FaChevronDown /> : <FaChevronRight />}
                       <span>Python</span>
                     </div>
-                    <button 
-                      className={`copy-button ${copiedIndex === index ? 'copied' : ''}`}
-                      onClick={() => copyToClipboard(cell.content, index)}
-                    >
-                      {copiedIndex === index ? (
-                        <>
-                          <FaCheck /> Copied
-                        </>
-                      ) : (
-                        <>
-                          <FaCopy /> Copy
-                        </>
+                    <div className="code-actions" style={{ display: 'flex', alignItems: 'center' }}>
+                      {!stealthMode && (
+                        <button 
+                          className="download-button"
+                          onClick={() => downloadCode(cell.content, index, notebookData[index-1]?.content || '')}
+                          title="Download file"
+                          style={{ 
+                            marginRight: '8px',
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            padding: '6px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          <FaDownload />
+                        </button>
                       )}
-                    </button>
+                      <button 
+                        className={`copy-button ${copiedIndex === index ? 'copied' : ''}`}
+                        onClick={() => copyToClipboard(cell.content, index)}
+                      >
+                        {copiedIndex === index ? (
+                          <>
+                            <FaCheck /> Copied
+                          </>
+                        ) : (
+                          <>
+                            <FaCopy /> Copy
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
                   {expandedCodes[index] && (
                     <pre className="code-content">

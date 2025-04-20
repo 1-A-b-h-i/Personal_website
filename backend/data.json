@@ -2,24 +2,15 @@
   "experience": [
     {
       "id": 1,
-      "title": "Software Engineer",
-      "company": "Tech Company",
-      "location": "City, Country",
-      "period": "Jan 2022 - Present",
-      "description": "Developed and maintained web applications using React.js and Node.js. Implemented new features and improved existing functionality. Collaborated with cross-functional teams to deliver high-quality software products.",
-      "technologies": ["React", "Node.js", "MongoDB", "AWS"]
+      "title": "SDE Intern",
+      "company": "Wizcom Technologies",
+      "location": "Hyderabad, India",
+      "period": "December 2024 - January 2025",
+      "description": "Developed a full-stack Stock Alert App using React, Flask, MySQL, and Pandas to automate stock price monitoring, trigger alerts, and perform data analysis with dynamic user interfaces and robust backend integrations.",
+      "technologies": ["JavaScript", "HTML/CSS", "Git", "Agile", "React", "Flask", "MySQL", "Pandas"]
     },
     {
       "id": 2,
-      "title": "Junior Developer",
-      "company": "Startup Inc.",
-      "location": "City, Country",
-      "period": "May 2020 - Dec 2021",
-      "description": "Assisted in the development of web applications. Participated in code reviews and testing. Learned and implemented best practices in software development.",
-      "technologies": ["JavaScript", "HTML/CSS", "Git", "Agile"]
-    },
-    {
-      "id": 3,
       "title": "Research Intern",
       "company": "IIT Hyderabad",
       "location": "Hyderabad, India",
@@ -28,7 +19,7 @@
       "technologies": ["YOLOv8", "Gaze Parameters", "Python", "SQL"]
     },
     {
-      "id": 4,
+      "id": 3,
       "title": "Technical Intern",
       "company": "Tech Mahindra",
       "location": "Hyderabad, India",
