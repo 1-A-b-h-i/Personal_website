@@ -1,113 +1,117 @@
 # Personal Portfolio Website
 
-A full-stack personal portfolio website with a React frontend and Flask backend.
+A modern portfolio website for Abhinav Paidisetti built with React and Firebase.
 
 ## Project Structure
 
-- **frontend/**: React-based frontend application
-- **backend/**: Flask-based API backend
-
-## Frontend
-
-The frontend is built with React and includes:
-
-- Modern UI with responsive design
-- Portfolio sections (Experience, Achievements, Blog)
-- Interactive components
-- Contact form
-- AI chat assistant integration
-
-### Setup
-
-```bash
-cd frontend
-npm install
-npm start
+```
+├── firebase.json        # Firebase configuration
+├── firestore.rules      # Firestore security rules
+├── frontend/            # React frontend application
+│   ├── public/          # Static assets
+│   ├── src/             # Source code
+│   │   ├── components/  # React components
+│   │   ├── pages/       # Page components
+│   │   ├── services/    # Service functions for API calls
+│   │   ├── data/        # Static data files
+│   │   └── ...
+│   └── functions/       # Firebase Cloud Functions
+│       ├── index.js     # JavaScript functions
+│       └── main.py      # Python functions
+└── scripts/             # Utility scripts
+    ├── upload-firebase-data.js  # Data upload script
+    └── website_data.json        # Website content data
 ```
 
-The development server will run on [http://localhost:3000](http://localhost:3000).
+## Getting Started
 
-### Building for Production
+### Prerequisites
 
-```bash
-cd frontend
-npm run build
-```
+- Node.js (v16+)
+- npm or yarn
+- Firebase CLI (`npm install -g firebase-tools`)
 
-## Backend
+### Installation
 
-The backend is a Flask API that provides:
-
-- Experience data
-- Achievements data
-- Blog posts
-- AI assistant chat functionality
-- Contact form submissions
-
-### Setup
-
-1. Install Python (3.7 or higher)
-
-2. Create a virtual environment:
-```bash
-cd backend
-python -m venv venv
-```
-
-3. Activate the virtual environment:
-   - Windows: 
+1. Clone the repository:
    ```bash
-   venv\Scripts\activate
-   ```
-   - Mac/Linux: 
-   ```bash
-   source venv/bin/activate
+   git clone https://github.com/abhinavpaidisetti/personal-website.git
+   cd personal-website
    ```
 
-4. Install dependencies:
+2. Install dependencies:
+   ```bash
+   npm install
+   cd frontend && npm install
+   cd ../frontend/functions && npm install
+   cd ../..
+   ```
+
+3. Set up environment variables:
+   - Create a `.env` file in the `frontend` directory
+   - Add the following Firebase configurations:
+     ```
+     REACT_APP_FIREBASE_API_KEY=your_api_key
+     REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+     REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+     REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+     REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+     REACT_APP_FIREBASE_APP_ID=your_app_id
+     REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
+     REACT_APP_GEMINI_API_KEY=your_gemini_api_key
+     ```
+
+4. Run the development server:
+   ```bash
+   npm start
+   ```
+
+### Firebase Functions
+
+This project uses Firebase Cloud Functions for the backend. To run the functions locally:
+
 ```bash
-pip install -r requirements.txt
+npm run dev:functions
 ```
 
-5. Start the server:
+### Deployment
+
+Deploy to Firebase:
+
 ```bash
-python app.py
-```
-
-The API will be available at [http://localhost:5000](http://localhost:5000).
-
-## API Endpoints
-
-- **GET** `/api/experience` - Get all work experience entries
-- **GET** `/api/achievements` - Get all achievements
-- **GET** `/api/blog` - Get all blog posts
-- **GET** `/api/blog/<post_id>` - Get a specific blog post by ID
-- **POST** `/api/chat` - Send a message to the AI assistant
-- **POST** `/api/contact` - Submit contact information
-
-## Deployment
-
-### Frontend
-The frontend is configured for GitHub Pages deployment:
-```bash
-cd frontend
 npm run deploy
 ```
 
-### Backend
-For production deployment, consider:
-- Using a production WSGI server (Gunicorn)
-- Setting up proper error handling and logging
-- Implementing database storage instead of JSON files
-- Adding authentication for admin functionality
+## Features
 
-## Development
+- Responsive design
+- Work experience showcase
+- Projects portfolio
+- Achievements section
+- Blog with Markdown support
+- Contact form
+- AI-powered chat assistant
+- Firebase authentication
+- Firestore database
 
-To run the full stack locally:
-1. Start the backend server
-2. Start the frontend development server
-3. The frontend will communicate with the backend API
+## Data Management
+
+The website content is stored in Firebase Firestore. To update the content:
+
+1. Edit the `scripts/website_data.json` file
+2. Run the upload script:
+   ```bash
+   npm run upload
+   ```
 
 ## License
 
-[MIT License](LICENSE) 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- React
+- Firebase
+- Google Gemini AI
+- React Router
+- React Icons 

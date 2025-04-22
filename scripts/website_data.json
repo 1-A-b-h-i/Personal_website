@@ -1,0 +1,121 @@
+{
+  "experience": [
+    {
+      "id": 1,
+      "title": "SDE Intern",
+      "company": "Wizcom Technologies",
+      "location": "India",
+      "period": "6th Dec 2024 – 6th Jan 2025",
+      "description": "Developed a full-stack Stock Alert App using React, Flask, MySQL, and Pandas to automate stock price monitoring, trigger alerts, and data analysis.",
+      "technologies": ["React", "Flask", "MySQL", "Pandas"]
+    },
+    {
+      "id": 2,
+      "title": "Research Intern",
+      "company": "IIT Hyderabad",
+      "location": "Hyderabad, India",
+      "period": "10th June – 10th Sept 2024",
+      "description": "Trained a YOLOv8 model for AOI Detection and analyzed driver attention spans using Gaze Parameters.",
+      "technologies": ["YOLOv8", "Gaze Parameters", "Python"]
+    },
+    {
+      "id": 3,
+      "title": "Technical Intern",
+      "company": "Tech Mahindra",
+      "location": "India",
+      "period": "22nd May – 30th June 2024",
+      "description": "Worked on SAP (ERP Model) – Data Archiving (SARA & SARI modules).",
+      "technologies": ["SAP", "Data Archiving", "ERP Model"]
+    }
+  ],
+  "achievements": [
+    {
+      "id": 1,
+      "title": "Hackathon Winner",
+      "date": "2024",
+      "description": "Won ₹20,000 INR at a hackathon hosted by HCLTech.",
+      "link": null
+    },
+    {
+      "id": 2,
+      "title": "BCG Data Science Internship",
+      "date": "2023",
+      "description": "Completed the Data Science Virtual Experience Program by BCG Forage.",
+      "link": null
+    },
+    {
+      "id": 3,
+      "title": "IBM AI Engineering",
+      "date": "2024",
+      "description": "Pursuing IBM AI Engineering Professional Certificate.",
+      "link": null
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": 1,
+      "title": "My Journey with AI and Machine Learning",
+      "date": "2024-05-15",
+      "summary": "Reflecting on my experiences exploring AI and ML technologies during my academic journey.",
+      "content": "# My Journey with AI and Machine Learning\n\nIn this article, I'll share my experiences learning about artificial intelligence and machine learning as a Computer Science and Business Systems student. I'll cover my academic explorations, projects, and insights gained along the way.\n\n## Getting Started with AI\n\nMy interest in AI began during my second year at SASTRA University when I joined SALVO, our university's AI club...",
+      "tags": ["AI", "Machine Learning", "Education"]
+    },
+    {
+      "id": 2,
+      "title": "Research Experience at IIT Hyderabad",
+      "date": "2024-09-30",
+      "summary": "Insights from my research internship at IIT Hyderabad working with computer vision and YOLOv8.",
+      "content": "# Research Experience at IIT Hyderabad\n\nDuring the summer of 2024, I had the opportunity to intern at IIT Hyderabad, working on a computer vision project focused on AOI Detection and driver attention span analysis. In this post, I'll share what I learned and the skills I developed...",
+      "tags": ["Research", "Computer Vision", "YOLOv8"]
+    }
+  ],
+  "basic_info": {
+    "name": "Abhinav Paidisetti",
+    "title": "Computer Science and Business Systems Student",
+    "location": "SASTRA University, India",
+    "email": "abhinavpaidisetti@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/abhinav-paidisetti-a23186181/",
+    "github": "github.com/abhinavpaidisetti",
+    "website": "abhinavpaidisetti.me",
+    "summary": "B.Tech 3rd Year Computer Science and Business Systems student with strong expertise in AI/ML and web development. Actively involved in AI research and application development. Currently working as an SDE Intern at Wizcom Technologies and serving as a coordinator at SALVO, SASTRA's AI club."
+  },
+  "skills": {
+    "programming_languages": ["C", "C++", "Python", "R", "JavaScript", "PHP", "SQL"],
+    "web_technologies": ["HTML", "CSS", "JavaScript", "ReactJS", "MongoDB"],
+    "frameworks_libraries": ["Flask"],
+    "databases": ["MySQL", "MongoDB"],
+    "soft_skills": ["Analytical problem-solving", "Public speaking", "MS Office tools"],
+    "ai_ml_expertise": ["Machine Learning", "Deep Learning", "Computer Vision", "Large Language Models", "Neural Networks", "Data Analysis"]
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "Personal Portfolio Website",
+      "description": "Personal portfolio website built with modern web technologies.",
+      "technologies": ["Web Technologies"],
+      "github": "",
+      "live": "abhinavpaidisetti.me"
+    },
+    {
+      "id": 2,
+      "name": "ML Prediction & Classification Models",
+      "description": "Developed various machine learning models for prediction and classification tasks, applying different algorithms and techniques to improve accuracy and performance.",
+      "technologies": ["Python", "Scikit-learn", "Pandas", "NumPy", "Machine Learning Algorithms"],
+      "github": ""
+    },
+    {
+      "id": 3,
+      "name": "Computer Vision Applications",
+      "description": "Created deep learning applications for image detection and recognition using computer vision techniques and neural network architectures.",
+      "technologies": ["TensorFlow", "PyTorch", "OpenCV", "CNN", "Deep Learning"],
+      "github": ""
+    },
+    {
+      "id": 4,
+      "name": "LLM Exploration Projects",
+      "description": "Currently exploring Large Language Models, including fine-tuning, prompt engineering, and application development.",
+      "technologies": ["Transformers", "LLMs", "NLP", "Python"],
+      "github": ""
+    }
+  ]
+} 

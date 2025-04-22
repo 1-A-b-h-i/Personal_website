@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Portfolio Website - Serverless Version
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a serverless implementation of a personal portfolio website using Firebase's free tier.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Experience/Work History
+- Projects/Achievements
+- Blog/Articles
+- AI-powered Chat Assistant (using Firestore and client-side API calls)
+- Contact Form 
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project uses a completely serverless architecture:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Firebase Hosting**: Serves the React frontend
+- **Firebase Firestore**: Stores all website data and chat history
+- **Firebase Authentication**: (Optional) For admin authentication
+- **Client-side API Integration**: For AI features and dynamic content
 
-### `npm test`
+## Setup & Deployment
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js and npm
+- Firebase CLI (`npm install -g firebase-tools`)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Steps to Deploy
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository
+   ```
+   git clone <repository-url>
+   cd Personal_website
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies
+   ```
+   cd frontend
+   npm install
+   ```
 
-### `npm run eject`
+3. Log in to Firebase
+   ```
+   firebase login
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Initialize Firebase (if not already done)
+   ```
+   firebase init
+   ```
+   - Select Firestore and Hosting
+   - Choose your Firebase project
+   - Accept default for Firestore rules
+   - Set `build` as public directory
+   - Configure as a single-page app
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Build the frontend
+   ```
+   npm run build
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+6. Deploy to Firebase
+   ```
+   firebase deploy
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Updating Content
 
-## Learn More
+There are two ways to update website content:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Admin Dashboard**: Implement an admin dashboard with authentication
+2. **Direct Firestore Updates**: Use Firebase Console to update content in the `website_data` collection
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Environment Variables
 
-### Code Splitting
+Create a `.env` file in the frontend directory with these variables:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+REACT_APP_FIREBASE_API_KEY=your-firebase-api-key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+REACT_APP_FIREBASE_APP_ID=your-app-id
+REACT_APP_GEMINI_API_KEY=your-gemini-api-key
+```
 
-### Analyzing the Bundle Size
+## Security Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Be careful with API key usage in client-side code
+- Consider using Firebase Security Rules to restrict access
+- For production, implement rate limiting and additional security measures
+- Consider Firebase Auth for protected admin features

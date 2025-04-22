@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { createChatSession, getChatHistory, clearChatHistory } from '../../services/ragChatService';
+import { sendRagChatMessage } from '../../services/ragChatService';
 
 function AIChat() {
   const [messages, setMessages] = useState([
@@ -32,13 +34,22 @@ function AIChat() {
   // Initialize chat session
   const initializeSession = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/chat/session', {
-        method: 'GET',
-        credentials: 'include',
-      });
+      const { sessionId } = createChatSession();
+      setSessionId(sessionId);
       
-      const data = await response.json();
-      setSessionId(data.session_id);
+      // Load previous messages if any exist
+      if (sessionId) {
+        const history = await getChatHistory(sessionId);
+        if (history && history.length > 0) {
+          const formattedMessages = history.map((msg, index) => ({
+            id: index + 2, // Start from 2 because we already have the welcome message
+            text: msg.message,
+            sender: msg.isUser ? "user" : "ai"
+          }));
+          
+          setMessages(prevMessages => [prevMessages[0], ...formattedMessages]);
+        }
+      }
     } catch (error) {
       console.error('Error initializing chat session:', error);
     }
@@ -47,14 +58,9 @@ function AIChat() {
   // Clear conversation history
   const clearConversation = async () => {
     try {
-      await fetch('http://localhost:5000/api/chat/clear', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ session_id: sessionId }),
-      });
+      if (sessionId) {
+        await clearChatHistory(sessionId);
+      }
       
       // Reset UI
       setMessages([
@@ -66,35 +72,6 @@ function AIChat() {
       ]);
     } catch (error) {
       console.error('Error clearing conversation:', error);
-    }
-  };
-
-  // Send message to backend API
-  const sendMessageToAPI = async (message) => {
-    try {
-      const response = await fetch('http://localhost:5000/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ 
-          message, 
-          session_id: sessionId 
-        }),
-      });
-      
-      const data = await response.json();
-      
-      // Update session ID if it's returned by the server
-      if (data.session_id) {
-        setSessionId(data.session_id);
-      }
-      
-      return data.response;
-    } catch (error) {
-      console.error('Error communicating with API:', error);
-      return "Sorry, I'm having trouble connecting to my knowledge base right now.";
     }
   };
 
@@ -112,17 +89,22 @@ function AIChat() {
     setInputMessage('');
     setIsTyping(true);
     
-    // Get response from API
+    // Get response using our RAG service
     try {
-      const aiResponseText = await sendMessageToAPI(inputMessage);
+      const result = await sendRagChatMessage(inputMessage, sessionId);
       
       const aiResponse = {
         id: messages.length + 2,
-        text: aiResponseText,
+        text: result.response,
         sender: "ai"
       };
       
       setMessages(prev => [...prev, aiResponse]);
+      
+      // Update session ID if needed
+      if (result.sessionId && result.sessionId !== sessionId) {
+        setSessionId(result.sessionId);
+      }
     } catch (error) {
       console.error('Error getting response:', error);
       

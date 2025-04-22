@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getExperience } from '../../services/dataService';
 
 function WorkExperience() {
   const [experiences, setExperiences] = useState([]);
@@ -8,11 +9,7 @@ function WorkExperience() {
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/experience');
-        if (!response.ok) {
-          throw new Error('Failed to fetch experience data');
-        }
-        const data = await response.json();
+        const data = await getExperience();
         setExperiences(data);
         setLoading(false);
       } catch (err) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getBlogPosts } from '../../services/dataService';
 
 function BlogList() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -10,16 +11,12 @@ function BlogList() {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/blog');
-        if (!response.ok) {
-          throw new Error('Failed to fetch blog posts');
-        }
-        const data = await response.json();
+        const data = await getBlogPosts();
         
         // Add some additional fields if they're not in the API data
         const enhancedData = data.map(post => ({
           ...post,
-          category: post.category || "Web Development",
+          category: post.category || getCategory(post.tags), // Derive category from tags if not present
           image: post.image || "https://via.placeholder.com/600x400",
           slug: post.slug || `post-${post.id}`
         }));
@@ -35,6 +32,14 @@ function BlogList() {
 
     fetchBlogPosts();
   }, []);
+
+  // Helper function to derive a category from tags
+  const getCategory = (tags) => {
+    if (!tags || tags.length === 0) return "General";
+    
+    // Use the first tag as the category
+    return tags[0];
+  };
 
   if (loading) {
     return <div className="loading">Loading blog posts...</div>;

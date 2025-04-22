@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import WorkExperiencePage from './pages/WorkExperiencePage';
 import AchievementsPage from './pages/AchievementsPage';
 import BlogPage from './pages/BlogPage';
+import BlogDetailPage from './pages/BlogDetailPage';
+import BlogEditorPage from './pages/BlogEditorPage';
+import BlogAdminPage from './pages/BlogAdminPage';
+import LoginPage from './pages/LoginPage';
 import AIAssistantPage from './pages/AIAssistantPage';
 import ProjectsPage from './pages/ProjectsPage';
 import HomePage from './pages/HomePage';
@@ -33,10 +37,16 @@ function App() {
         <Route path="/experience" element={<WorkExperiencePage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogDetailPage />} />
+        <Route path="/blog/new" element={<BlogEditorPage />} />
+        <Route path="/blog/edit/:postId" element={<BlogEditorPage />} />
+        <Route path="/blog/admin" element={<BlogAdminPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/chat" element={<AIAssistantPage />} />
         <Route path="/clipboard" element={<ClipboardPage />} />
         <Route path="/productivity" element={<ProductivityPage />} />
+        <Route path="/workspace" element={<ProductivityPage />} />
         <Route path="*" element={<HomePage welcomeTexts={welcomeTexts} textIndex={textIndex} />} />
       </Routes>
     </Router>
