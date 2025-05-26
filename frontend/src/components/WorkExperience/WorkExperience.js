@@ -1,33 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { getExperience } from '../../services/dataService';
 
 function WorkExperience() {
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  // Real work experience data from website_data.json
+  const staticExperiences = [
+    {
+      id: 1,
+      title: "SDE Intern",
+      company: "Wizcom Technologies",
+      location: "India",
+      period: "6th Dec 2024 – 6th Jan 2025",
+      description: "Developed a full-stack Stock Alert App using React, Flask, MySQL, and Pandas to automate stock price monitoring, trigger alerts, and data analysis.",
+      technologies: ["React", "Flask", "MySQL", "Pandas"]
+    },
+    {
+      id: 2,
+      title: "Research Intern",
+      company: "IIT Hyderabad",
+      location: "Hyderabad, India",
+      period: "10th June – 10th Sept 2024",
+      description: "Trained a YOLOv8 model for AOI Detection and analyzed driver attention spans using Gaze Parameters.",
+      technologies: ["YOLOv8", "Gaze Parameters", "Python"]
+    },
+    {
+      id: 3,
+      title: "Technical Intern",
+      company: "Tech Mahindra",
+      location: "India",
+      period: "22nd May – 30th June 2024",
+      description: "Worked on SAP (ERP Model) – Data Archiving (SARA & SARI modules).",
+      technologies: ["SAP", "Data Archiving", "ERP Model"]
+    }
+  ];
 
   useEffect(() => {
-    const fetchExperiences = async () => {
-      try {
-        const data = await getExperience();
-        setExperiences(data);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching experiences:', err);
-        setError('Failed to load work experience data. Please try again later.');
-        setLoading(false);
-      }
-    };
-
-    fetchExperiences();
-  }, []);
+    // Simulate loading time
+    setTimeout(() => {
+      setExperiences(staticExperiences);
+      setLoading(false);
+    }, 500);
+  }, [staticExperiences]);
 
   if (loading) {
     return <div className="loading">Loading work experience...</div>;
-  }
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
   }
 
   return (

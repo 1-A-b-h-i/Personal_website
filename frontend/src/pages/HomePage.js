@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { FaClipboard } from 'react-icons/fa';
 import '../styles/HomePage.css';
 
 function HomePage({ welcomeTexts, textIndex }) {
@@ -15,10 +14,6 @@ function HomePage({ welcomeTexts, textIndex }) {
 
   const navigateToExperience = () => {
     navigate('/experience');
-  };
-
-  const navigateToClipboard = () => {
-    navigate('/clipboard');
   };
 
   // Shorter secret code: up, down, up, down
@@ -69,10 +64,6 @@ function HomePage({ welcomeTexts, textIndex }) {
       <Navbar />
       <div className="content-wrapper">
         <div className="animated-background"></div>
-        
-        <div className="clipboard-icon" onClick={navigateToClipboard}>
-          <FaClipboard size={24} />
-        </div>
         
         <div className="welcome-content">
           <h1 className="welcome-title">Hello, I'm <span className="highlight">Abhinav</span></h1>

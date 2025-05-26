@@ -42,16 +42,7 @@ function Navbar() {
               Achievements
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/blog" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              Blog
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/chat" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              AI Assistant
-            </Link>
-          </li>
+
           <li className="nav-item">
             <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
               Contact

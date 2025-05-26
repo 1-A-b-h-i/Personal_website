@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { getAchievements } from '../../services/dataService';
 
 function Achievements() {
   const [achievements, setAchievements] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  // Real achievements data from website_data.json
+  const staticAchievements = [
+    {
+      id: 1,
+      title: "Hackathon Winner",
+      date: "2024",
+      description: "Won ₹20,000 INR at a hackathon hosted by HCLTech.",
+      link: null
+    },
+    {
+      id: 2,
+      title: "BCG Data Science Internship",
+      date: "2023",
+      description: "Completed the Data Science Virtual Experience Program by BCG Forage.",
+      link: null
+    },
+    {
+      id: 3,
+      title: "IBM AI Engineering",
+      date: "2024",
+      description: "Pursuing IBM AI Engineering Professional Certificate.",
+      link: null
+    }
+  ];
 
   useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const data = await getAchievements();
-        setAchievements(data);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching achievements:', err);
-        setError('Failed to load achievements data. Please try again later.');
-        setLoading(false);
-      }
-    };
-
-    fetchAchievements();
-  }, []);
+    // Simulate loading time
+    setTimeout(() => {
+      setAchievements(staticAchievements);
+      setLoading(false);
+    }, 500);
+  }, [staticAchievements]);
 
   if (loading) {
     return <div className="loading">Loading achievements...</div>;
-  }
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
   }
 
   return (

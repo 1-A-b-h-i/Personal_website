@@ -2,16 +2,9 @@
   "name": "personal-website",
   "version": "1.0.0",
   "description": "Abhinav Paidisetti's Personal Portfolio Website",
-  "main": "upload-firebase-data.js",
   "scripts": {
-    "upload": "node scripts/upload-firebase-data.js",
     "start": "cd frontend && npm start",
     "build": "cd frontend && npm run build",
-    "deploy": "cd frontend && npm run deploy:firebase",
-    "dev:functions": "cd frontend/functions && npm run serve"
-  },
-  "dependencies": {
-    "firebase": "^11.6.0",
-    "firebase-admin": "^11.10.1"
+    "deploy": "cd frontend && npm run deploy"
   }
 }

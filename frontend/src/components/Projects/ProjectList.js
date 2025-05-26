@@ -1,87 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import { FaSearch } from 'react-icons/fa';
 
 function ProjectList() {
-  // Sample project data (in a real app, this would come from an API)
-  const [projects, setProjects] = useState([
+  // Real project data from website_data.json
+  const [projects] = useState([
     {
       id: 1,
       title: "Personal Portfolio Website",
-      description: "A full-stack personal portfolio website with a React frontend and Flask backend.",
+      description: "Personal portfolio website built with modern web technologies.",
       readmeSnippet: "Modern UI with responsive design, portfolio sections, interactive components, contact form, and AI chat assistant integration.",
       image: "https://via.placeholder.com/600x400?text=Portfolio+Website",
-      githubUrl: "https://github.com/1-A-b-h-i/Personal_website",
-      liveUrl: "https://1-A-b-h-i.github.io/Personal_website",
-      techStack: ["React", "Flask", "Python", "JavaScript"],
+      githubUrl: "",
+      liveUrl: "abhinavpaidisetti.me",
+      techStack: ["Web Technologies"],
       category: "Web Development",
       isActive: true,
-      lastUpdated: "2023-04-01"
+      lastUpdated: "2024-01-01"
     },
     {
       id: 2,
-      title: "AI Image Generator",
-      description: "An AI-powered image generation tool that creates unique images from text descriptions.",
-      readmeSnippet: "Uses deep learning models to generate images from natural language prompts. Features custom styling options and export capabilities.",
-      image: "https://via.placeholder.com/600x400?text=AI+Image+Generator",
-      githubUrl: "https://github.com/1-A-b-h-i/ai-image-generator",
-      liveUrl: "https://ai-image-gen.example.com",
-      techStack: ["Python", "TensorFlow", "React", "Flask"],
+      title: "ML Prediction & Classification Models",
+      description: "Developed various machine learning models for prediction and classification tasks, applying different algorithms and techniques to improve accuracy and performance.",
+      readmeSnippet: "Implemented various classification algorithms with high accuracy for different prediction tasks.",
+      image: "https://via.placeholder.com/600x400?text=ML+Models",
+      githubUrl: "",
+      liveUrl: null,
+      techStack: ["Python", "Scikit-learn", "Pandas", "NumPy", "Machine Learning Algorithms"],
       category: "AI",
       isActive: true,
-      lastUpdated: "2023-03-15"
+      lastUpdated: "2024-01-01"
     },
     {
       id: 3,
-      title: "Weather App",
-      description: "A real-time weather application with location detection and forecasting.",
-      readmeSnippet: "Features current conditions, 5-day forecast, and historical weather data. Supports location search and favorites.",
-      image: "https://via.placeholder.com/600x400?text=Weather+App",
-      githubUrl: "https://github.com/1-A-b-h-i/weather-app",
-      liveUrl: "https://weather.example.com",
-      techStack: ["JavaScript", "React", "OpenWeather API", "CSS"],
-      category: "Web Development",
-      isActive: false,
-      lastUpdated: "2023-02-20"
+      title: "Computer Vision Applications",
+      description: "Created deep learning applications for image detection and recognition using computer vision techniques and neural network architectures.",
+      readmeSnippet: "Developed object detection and image recognition systems using advanced computer vision techniques.",
+      image: "https://via.placeholder.com/600x400?text=Computer+Vision",
+      githubUrl: "",
+      liveUrl: null,
+      techStack: ["TensorFlow", "PyTorch", "OpenCV", "CNN", "Deep Learning"],
+      category: "AI",
+      isActive: true,
+      lastUpdated: "2024-01-01"
     },
     {
       id: 4,
-      title: "E-commerce Platform",
-      description: "A full-featured e-commerce platform with product management, cart, and checkout.",
-      readmeSnippet: "Includes user authentication, product catalog, shopping cart, payment processing, and order management.",
-      image: "https://via.placeholder.com/600x400?text=E-commerce+Platform",
-      githubUrl: "https://github.com/1-A-b-h-i/ecommerce-platform",
+      title: "LLM Exploration Projects",
+      description: "Currently exploring Large Language Models, including fine-tuning, prompt engineering, and application development.",
+      readmeSnippet: "Actively researching and implementing LLM-based solutions for various applications.",
+      image: "https://via.placeholder.com/600x400?text=LLM+Projects",
+      githubUrl: "",
       liveUrl: null,
-      techStack: ["React", "Node.js", "MongoDB", "Express", "Stripe"],
-      category: "Web Development",
-      isActive: true,
-      lastUpdated: "2023-01-10"
-    },
-    {
-      id: 5,
-      title: "Task Management CLI",
-      description: "A command-line tool for managing tasks and projects efficiently.",
-      readmeSnippet: "Organize tasks, set priorities, track deadlines, and generate progress reports all from your terminal.",
-      image: "https://via.placeholder.com/600x400?text=Task+CLI",
-      githubUrl: "https://github.com/1-A-b-h-i/task-cli",
-      liveUrl: null,
-      techStack: ["Python", "Click", "SQLite"],
-      category: "Tools",
-      isActive: false,
-      lastUpdated: "2022-11-05"
-    },
-    {
-      id: 6,
-      title: "Machine Learning Exercise Tracker",
-      description: "A fitness application that uses ML to track and correct exercise form.",
-      readmeSnippet: "Uses computer vision to analyze exercise form and provide real-time feedback for improved results and injury prevention.",
-      image: "https://via.placeholder.com/600x400?text=ML+Exercise+Tracker",
-      githubUrl: "https://github.com/1-A-b-h-i/ml-exercise-tracker",
-      liveUrl: "https://exercise-tracker.example.com",
-      techStack: ["Python", "TensorFlow", "OpenCV", "React Native"],
+      techStack: ["Transformers", "LLMs", "NLP", "Python"],
       category: "AI",
       isActive: true,
-      lastUpdated: "2023-03-30"
+      lastUpdated: "2024-01-01"
     }
   ]);
 
